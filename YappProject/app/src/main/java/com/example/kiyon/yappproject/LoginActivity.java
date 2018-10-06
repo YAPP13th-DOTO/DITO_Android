@@ -12,12 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.model.LoginResponseResult;
+import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -40,25 +43,28 @@ import static com.kakao.util.helper.Utility.getPackageInfo;
 
 
 public class LoginActivity extends AppCompatActivity {
-    SessionCallback callback;
-    private LoginButton btn_kakao_login;
+    private SessionCallback callback;
+    private ImageView btn_kakao_login;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
 
 
-        btn_kakao_login = findViewById(R.id.btn_kakao_login);
+        btn_kakao_login= findViewById(R.id.btn_kakao_login);
         btn_kakao_login.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                btn_kakao_login.performClick();
+                Session session = Session.getCurrentSession();
+                session.addCallback(new SessionCallback());
+                session.open(AuthType.KAKAO_ACCOUNT , LoginActivity.this);
             }
         });
 
@@ -96,9 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 로그인에 실패한 상태
-
         @Override
-
         public void onSessionOpenFailed(KakaoException exception) {
 
             Log.e("SessionCallback :: ", "onSessionOpenFailed : " + exception.getMessage());
@@ -107,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 사용자 정보 요청
-
         public void requestMe() {
 
             // 사용자정보 요청 결과에 대한 Callback

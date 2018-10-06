@@ -4,28 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f9f9f9">
+    android:background="#ffff"
+    android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:id="@+id/logo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/text"
+            android:layout_marginBottom="21.7dp"
+            android:layout_centerInParent="true"
             android:src="@drawable/logo"/>
         <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="#0f0f0f"
-            android:letterSpacing="-0.02"
+            android:layout_above="@+id/invalid_name"
             android:lineSpacingExtra="4sp"
-            android:gravity="center_horizontal"
-            tools:text="모두의 팀플 Do it together!"/>
+            android:layout_marginBottom="24dp"
+            android:layout_centerInParent="true"
+            android:text="모두의 팀플 Do it together!" />
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/invalid_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/invalid_name"/>
+            android:src="@drawable/invalid_name"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </LinearLayout>

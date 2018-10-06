@@ -13,7 +13,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize">
-
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="28.8dp"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/logo"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icn_settings"
+                android:layout_gravity="right"
+                android:layout_marginRight="13dp"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -21,5 +31,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="메인 액티비티"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/addBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            app:fab_addButtonColorNormal="#111111"
+            android:layout_alignParentBottom="true"
+            app:fab_labelStyle="@style/custom_fab">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/roomMakeBtn"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:fab_size="mini"
+                android:onClick="onClick"
+                app:fab_title="만들기"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/roomGoBtn"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                app:fab_size="mini"
+                android:onClick="onClick"
+                app:fab_title="참여하기"/>
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </RelativeLayout>
 </LinearLayout>

@@ -16,8 +16,8 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_key" />
 
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".DetailRoomActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".DetailRoomActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".orgCreateActivity" />
-        <activity android:name=".linkCreateActivity"/>
+        <activity android:name=".linkCreateActivity" />
+        <activity android:name=".SplashActivity"></activity>
     </application>
 
 </manifest>

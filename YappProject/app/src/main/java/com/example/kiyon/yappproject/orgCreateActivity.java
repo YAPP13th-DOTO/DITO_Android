@@ -24,7 +24,7 @@ public class orgCreateActivity extends AppCompatActivity {
             }
         });
         //만들기 버튼 누를시, 링크복사 화면으로 넘어감
-
+        
 
     }
 }

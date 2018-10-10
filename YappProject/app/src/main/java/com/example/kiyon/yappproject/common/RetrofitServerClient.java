@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitServerClient {
 
-    private static final String BASE_URL = "http://yapp-env.nyt4arxqpj.ap-northeast-2.elasticbeanstalk.com/";
+    private static final String BASE_URL = "http://ec2-13-125-142-135.ap-northeast-2.compute.amazonaws.com:3000/";
     private static RetrofitServerClient instance = null;
 
     public static RetrofitServerClient getInstance() {

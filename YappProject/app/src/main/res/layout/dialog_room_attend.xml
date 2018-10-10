@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="282dp"
+    android:layout_height="245dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/toast_popup">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginLeft="30dp">
+        <TextView
+            android:id="@+id/content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#111111"
+            android:fontFamily="@font/nanumbarungothic"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="7sp"
+            android:text="팀플 참여코드를 입력하세요." />
+    </LinearLayout>
+    
+    <EditText
+        android:id="@+id/roomcode_edit"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="27dp"
+        android:layout_marginRight="23dp"
+        android:gravity="bottom|right">
+        <TextView
+            android:id="@+id/cancel_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="11sp"
+            android:textColor="#111111"
+            android:textSize="14sp"
+            android:layout_marginRight="32dp"
+            android:fontFamily="@font/nanumbarungothic"
+            android:text="취소"/>
+        <TextView
+            android:id="@+id/ok_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="11sp"
+            android:textColor="#111111"
+            android:textSize="14sp"
+            android:fontFamily="@font/nanumbarungothic"
+            android:text="확인"/>
+    </LinearLayout>
+
+</LinearLayout>

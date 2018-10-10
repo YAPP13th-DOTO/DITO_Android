@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -30,11 +31,13 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
+import com.kakao.util.protocol.KakaoProtocolService;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,9 +46,15 @@ import static com.kakao.util.helper.Utility.getPackageInfo;
 
 
 public class LoginActivity extends AppCompatActivity {
+
     private SessionCallback callback;
     private ImageView btn_kakao_login;
 
+    private String nickname;
+
+    private String profileImagePath;
+
+    private  String UUID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                 session.open(AuthType.KAKAO_ACCOUNT , LoginActivity.this);
             }
         });
-
-        loginSucess();
-
     }
 
     //    private void getHashKey() {
@@ -124,7 +130,9 @@ public class LoginActivity extends AppCompatActivity {
                 public void onSessionClosed(ErrorResult errorResult) {
 
                     Log.e("SessionCallback :: ", "onSessionClosed : " + errorResult.getErrorMessage());
-
+                    if (errorResult.getErrorMessage().equals("this access token does not exist")) {
+                        Toasty.warning(LoginActivity.this , "다시 한번 시도해주세요.", Toast.LENGTH_LONG).show();
+                    }
                 }
 
 
@@ -148,60 +156,14 @@ public class LoginActivity extends AppCompatActivity {
 
                     Log.e("SessionCallback :: ", "onSuccess");
 
-                    String nickname = userProfile.getNickname();
+                    nickname = userProfile.getNickname();
+                    profileImagePath = userProfile.getProfileImagePath();
+                    UUID = userProfile.getUUID();
+                    loadData(UUID, nickname, profileImagePath);
 
-                    String email = userProfile.getEmail();
-
-                    String profileImagePath = userProfile.getProfileImagePath();
-
-                    String thumnailPath = userProfile.getThumbnailImagePath();
-
-                    String UUID = userProfile.getUUID();
-
-                    long id = userProfile.getId();
-
-//
-//                    Log.e("Profile : ", nickname + "");
-//
-//                    Log.e("Profile : ", email + "");
-//
-//                    Log.e("Profile : ", profileImagePath + "");
-//
-//                    Log.e("Profile : ", thumnailPath + "");
-//
-//                    Log.e("Profile : ", UUID + "");
-//
-//                    Log.e("Profile : ", id + "");
-
-                    Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().LoginResponseResult(UUID, nickname, profileImagePath);
-                    Log.d("test123", String.valueOf(call.request().url()));
-                    call.enqueue(new Callback<LoginResponseResult>() {
-                        @Override
-                        public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
-
-                            if (response.isSuccessful()) {
-                                LoginResponseResult loginResponseResult = response.body();
-                                if (loginResponseResult != null) {
-                                    SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-                                    @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("userID", loginResponseResult.kakao_id);
-                                    editor.putString("userName", loginResponseResult.user_name);
-                                    editor.putString("userImage", loginResponseResult.user_pic);
-                                    editor.apply();
-
-                                    loginSucess();
-                                }
-
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<LoginResponseResult> call, Throwable t) {
-                            Log.d("test123", t.getMessage());
-
-                        }
-                    });
+//                    long id = userProfile.getId();
+//                    String thumnailPath = userProfile.getThumbnailImagePath();
+//                    String email = userProfile.getEmail();
 
                 }
 
@@ -221,10 +183,6 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
 
                 public void onCompleteLogout() {
-/*
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-
-            startActivity(intent);*/
 
                 }
 
@@ -233,22 +191,36 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+    public void loadData(final String UUID, final String nickname, final String profileImagePath) {
+        Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().LoginResponseResult(UUID, nickname, profileImagePath);
+        call.enqueue(new Callback<LoginResponseResult>() {
+            @Override
+            public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
+                if (response.isSuccessful()) {
+                    LoginResponseResult loginResponseResult = response.body();
+                    if (loginResponseResult != null) {
+                        if (loginResponseResult.answer.equals("success")) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("userID", UUID);
+                            editor.putString("userName", nickname);
+                            editor.putString("userImage", profileImagePath);
+                            editor.apply();
 
-    public void loginSucess() {
-        // 저장된 토큰값 가져오기
-        Log.d("test123", "로그인 성공");
-        SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", null);
-        String userName = sharedPreferences.getString("userName", null);
-        String userImage = sharedPreferences.getString("userImage", null);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }
 
-        Log.d("test123", userID + userName + userImage);
-        if (userID != null && userName != null && userImage != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponseResult> call, Throwable t) {
+                Log.d("errorMsg", t.getMessage());
+
+            }
+        });
     }
-
-
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="79dp">
+        <TextView
+            android:id="@+id/subjectName_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/nanumbarungothicbold"
+            android:layout_marginTop="16dp"
+            android:textColor="#111111"
+            android:lineSpacingExtra="8sp"
+            android:text="소득주도 성장에 대한 자료조사" />
+
+        <ImageView
+            android:id="@+id/arrow_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/subjectName_tv"
+            android:src="@drawable/icn_arrow_up"/>
+
+        <ImageView
+            android:id="@+id/check_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="9dp"
+            android:layout_marginRight="18dp"
+            android:src="@drawable/check"/>
+
+        <ImageView
+            android:id="@+id/time_iv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="17dp"
+            android:src="@drawable/icn_time"/>
+
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/robotobold"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/time_iv"
+            android:textColor="#111111"
+            android:lineSpacingExtra="4sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="19dp"
+            android:layout_marginLeft="3dp"
+            android:text="18:35:19" />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
+

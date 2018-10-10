@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="18dp"
+    android:layout_marginTop="10dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_iv"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginRight="8dp"
+        app:civ_border_color="#707070"
+        app:civ_border_width="1dp"
+        android:src="@drawable/test_user"/>
+    <TextView
+        android:id="@+id/userName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/profile_iv"
+        android:fontFamily="@font/nanumbarungothic"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="7dp"
+        android:textColor="#111111"
+        android:lineSpacingExtra="6sp"
+        android:text="오리 인간"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/userName_tv"
+        android:textSize="12sp"
+        android:fontFamily="@font/nanumbarungothicbold"
+        android:layout_marginTop="9dp"
+        android:textColor="@color/yellow"
+        android:lineSpacingExtra="8sp"
+        android:text="지각" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:fontFamily="@font/nanumbarungothic"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="#0f0f0f"
+        android:lineSpacingExtra="6sp"
+        android:gravity="end"
+        android:text="미제출" />
+
+</RelativeLayout>

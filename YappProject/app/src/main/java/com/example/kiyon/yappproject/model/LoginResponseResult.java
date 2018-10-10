@@ -6,4 +6,5 @@ public class LoginResponseResult {
     public String kakao_id;
     public String user_name;
     public String user_pic;
+    public String answer;
 }

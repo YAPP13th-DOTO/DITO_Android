@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RoomCreateActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/yellow">
+            <TextView
+                android:id="@+id/title_toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#0f0f0f"
+                android:lineSpacingExtra="5sp"
+                android:fontFamily="@font/nanumbarungothicbold"
+                android:layout_gravity="center"
+                android:text="새 팀플 만들기"
+                />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#0f0f0f"
+            android:lineSpacingExtra="0sp"
+            android:text="방이름" />
+        <EditText
+            android:id="@+id/roomName_edit"
+            android:layout_width="304dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:hint="방 이름을 입력해주세요."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textSize="20sp"
+            android:textColor="#0f0f0f"
+            android:lineSpacingExtra="0sp"
+            android:text="과목 명" />
+        <EditText
+            android:id="@+id/subjectName_edit"
+            android:layout_width="304dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:hint="과목명을 입력해주세요."/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/create_btn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:background="#bfbfbf"
+            android:textColor="#0f0f0f"
+            android:textSize="20sp"
+            android:fontFamily="@font/nanumbarungothicbold"
+            android:lineSpacingExtra="0sp"
+            android:text="만들기"/>
+    </RelativeLayout>
+
+</LinearLayout>

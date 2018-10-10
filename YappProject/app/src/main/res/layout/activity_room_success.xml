@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RoomSuccessActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/yellow">
+            <TextView
+                android:id="@+id/title_toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#0f0f0f"
+                android:lineSpacingExtra="5sp"
+                android:fontFamily="@font/nanumbarungothicbold"
+                android:layout_gravity="center"
+                android:text="새 팀플 만들기"
+                />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#0f0f0f"
+        android:layout_gravity="center"
+        android:fontFamily="@font/nanumbarungothic"
+        android:text="** 과목"
+        android:layout_marginTop="108dp"
+        android:lineSpacingExtra="13sp"/>
+
+    <RelativeLayout
+        android:id="@+id/invite_layout"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:background="@drawable/invite_link_background"
+        android:layout_marginTop="93dp"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#090509"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="3sp"
+            android:layout_centerInParent="true"
+            android:text="초대링크 복사" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/complete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/yellow"
+            android:textColor="#0f0f0f"
+            android:textSize="20sp"
+            android:fontFamily="@font/nanumbarungothicbold"
+            android:lineSpacingExtra="0sp"
+            android:text="완료"/>
+    </RelativeLayout>
+</LinearLayout>

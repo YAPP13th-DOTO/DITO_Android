@@ -27,14 +27,19 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="메인 액티비티"/>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:paddingTop="9dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/addBtn"
             android:layout_width="wrap_content"
@@ -42,6 +47,7 @@
             android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
             app:fab_addButtonColorNormal="#111111"
+            app:fab_addButtonColorPressed="@color/yellow"
             android:layout_alignParentBottom="true"
             app:fab_labelStyle="@style/custom_fab">
 
@@ -49,16 +55,18 @@
                 android:id="@+id/roomMakeBtn"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                app:fab_size="mini"
-                android:onClick="onClick"
+                app:fab_colorNormal="@color/white"
+                app:fab_icon="@drawable/icn_create"
+                app:fab_colorPressed="@color/yellow"
                 app:fab_title="만들기"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/roomGoBtn"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                app:fab_size="mini"
-                android:onClick="onClick"
+                app:fab_icon="@drawable/icn_attend"
+                app:fab_colorNormal="@color/white"
+                app:fab_colorPressed="@color/yellow"
                 app:fab_title="참여하기"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>

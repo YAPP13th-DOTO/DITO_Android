@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="18dp"
+    android:layout_marginTop="15dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:civ_border_color="#707070"
+        app:civ_border_width="1dp"
+        android:src="@drawable/test_user"/>
+    <TextView
+        android:id="@+id/userName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/profile_iv"
+        android:fontFamily="@font/nanumbarungothic"
+        android:layout_marginLeft="17dp"
+        android:textSize="16sp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="4sp"
+        android:text="오리 인간"/>
+
+</RelativeLayout>

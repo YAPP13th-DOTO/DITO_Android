@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTaskActivity"
+    android:onClick="onClickCreateTask">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/yellow">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icn_arrow_back"
+                android:background="@android:color/transparent"
+                />
+            <TextView
+                android:id="@+id/title_toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#0f0f0f"
+                android:lineSpacingExtra="5sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/nanumbarungothicbold"
+                android:layout_gravity="center"
+                android:text="과제 추가하기"
+                />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/taskNameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#0f0f0f"
+        android:layout_below="@id/appBarLayout"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="25dp"
+        android:text="과제명"/>
+
+    <EditText
+        android:id="@+id/taskNameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="31dp"
+        android:maxLines="1"
+        android:layout_below="@id/taskNameTxt"
+        android:hint="과제명을 입력해주세요."/>
+
+    <TextView
+        android:id="@+id/subjectSubTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#0f0f0f"
+        android:layout_below="@id/taskNameEdit"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="25dp"
+        android:text="과제 내용"/>
+
+    <EditText
+        android:id="@+id/taskSubEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="31dp"
+        android:maxLines="1"
+        android:layout_below="@id/subjectSubTxt"
+        android:hint="과제 내용을 입력헤주세요."/>
+
+    <TextView
+        android:id="@+id/taskMemberTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textColor="#0f0f0f"
+        android:layout_below="@id/taskSubEdit"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:text="과제 수행자 지정하기"/>
+
+    <Button
+        android:id="@+id/taskMemberBtn"
+        android:layout_width="8dp"
+        android:layout_height="20dp"
+        android:background="@drawable/btn_more"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:onClick="onClickCreateTask"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/taskSubEdit"/>
+
+    <TextView
+        android:id="@+id/memberCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/taskDateBtn"
+        android:layout_below="@id/taskSubEdit"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="7dp"
+        android:textColor="#adadad"
+        />
+
+    <TextView
+        android:id="@+id/taskDateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textColor="#0f0f0f"
+        android:layout_below="@id/taskMemberTxt"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:text="과제 기한 설정하기"/>
+
+    <Button
+        android:id="@+id/taskDateBtn"
+        android:layout_width="8dp"
+        android:layout_height="20dp"
+        android:background="@drawable/btn_more"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentRight="true"
+        android:onClick="onClickCreateTask"
+        android:textSize="18dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/taskMemberTxt"/>
+
+    <TextView
+        android:id="@+id/dateCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/taskDateBtn"
+        android:layout_below="@id/memberCount"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="7dp"
+        android:textColor="#adadad"
+        />
+
+    <Button
+        android:id="@+id/taskCreateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textSize="20dp"
+        android:onClick="onClickCreateTask"
+        android:textColor="#0f0f0f"
+        android:background="#bfbfbf"
+        android:text="만들기"/>
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/materialCalender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mcv_selectionColor="#a9dbf0cb"
+        app:mcv_showOtherDates="defaults"
+        android:background="#FFFFFF"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        >
+
+
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+</RelativeLayout>

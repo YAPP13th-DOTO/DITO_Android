@@ -1,5 +1,6 @@
 package com.example.kiyon.yappproject.common;
 
+import com.example.kiyon.yappproject.model.AddTaskResponseResult;
 import com.example.kiyon.yappproject.model.BasicResponseResult;
 import com.example.kiyon.yappproject.model.CreateRoomResponseResult;
 import com.example.kiyon.yappproject.model.LoginResponseResult;
@@ -41,5 +42,11 @@ public interface ApiService {
     @GET("attend")
     Call<BasicResponseResult> RoomAttend (
       @Query("code") String code, @Query("id") String id
+    );
+
+    //과제생성
+    @GET("get/team")
+    Call<AddTaskResponseResult> AddTaskResponesResult (
+            @Query("tmcode") String tmcode
     );
 }

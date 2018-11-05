@@ -123,6 +123,8 @@ public class RoomDetailActivity extends AppCompatActivity {
                     break;
                 case R.id.subjectAdd_btn :
                     // 과제 추가 버튼 작업
+                    Intent intent1 = AddTaskActivity.newIntent(RoomDetailActivity.this, userResponseResult);
+                    startActivity(intent1);
                     break;
                 case R.id.roomDone_tv :
                     // 방 완료 버튼 작업

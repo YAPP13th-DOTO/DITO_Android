@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +23,6 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ArrayList<UserResponseResult> userResponseResults;
     private Context context;
 
-
-
     public MemberListRVAdapter(Context context) {
         this.context = context;
         userResponseResults = new ArrayList<>();
@@ -35,11 +35,13 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public class MemberListVH extends RecyclerView.ViewHolder {
         private ImageView profileImage;
         private TextView userName;
+        private CheckBox checkBox;
 
         public MemberListVH(View itemView) {
             super(itemView);
-            profileImage = itemView.findViewById(R.id.userName);
+            profileImage = itemView.findViewById(R.id.profileImage);
             userName = itemView.findViewById(R.id.userName);
+            checkBox = itemView.findViewById(R.id.checkBox);
         }
     }
 
@@ -52,14 +54,27 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        MemberListVH memberListVH = (MemberListVH) holder;
+        final MemberListVH memberListVH = (MemberListVH) holder;
 
         if(userResponseResults.get(position).user_pic.equals("undefined")) {
             Glide.with(context).load(R.drawable.test_user).into(memberListVH.profileImage);
         }else {
             Glide.with(context).load(userResponseResults.get(position).user_pic).into(memberListVH.profileImage);
         }
+
         memberListVH.userName.setText(userResponseResults.get(position).user_name);
+        
+        memberListVH.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(memberListVH.checkBox.isChecked() == true) {
+                    memberListVH.checkBox.setButtonDrawable(R.drawable.check);
+                } else {
+                    memberListVH.checkBox.setButtonDrawable(R.drawable.un_check);
+                }
+            }
+        });
     }
 
     @Override

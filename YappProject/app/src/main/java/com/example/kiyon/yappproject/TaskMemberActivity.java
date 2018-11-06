@@ -17,12 +17,14 @@ import static com.example.kiyon.yappproject.AddTaskActivity.USER_DATA;
 
 public class TaskMemberActivity extends AppCompatActivity {
     RecyclerView recyclerView1,recyclerView2;
+    MemberListRVAdapter memberListRVAdapter;
 
     public static Intent newIntent (Context context, ArrayList<UserResponseResult> list) {
         Intent intent = new Intent(context, TaskMemberActivity.class);
         intent.putExtra(USER_DATA,list);
         return intent;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +33,17 @@ public class TaskMemberActivity extends AppCompatActivity {
         //팀원 전체
         recyclerView2 = findViewById(R.id.recyclerview2);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
-        MemberListRVAdapter memberListRVAdapter = new MemberListRVAdapter(TaskMemberActivity.this);
+        memberListRVAdapter = new MemberListRVAdapter(TaskMemberActivity.this);
         recyclerView2.setAdapter(memberListRVAdapter);
+
+        Intent intent = getIntent();
+        ArrayList<UserResponseResult> list = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
+
+        memberListRVAdapter.setData(list);
+
+        //선탣된 팀원
+        recyclerView1 = findViewById(R.id.recyclerview1);
+
     }
     public void onClickTaskMember(View v) {
         switch (v.getId()) {

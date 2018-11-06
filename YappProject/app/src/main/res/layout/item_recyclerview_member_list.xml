@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".adapter.MemberListRVAdapter"
     android:paddingLeft="16dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
    <de.hdodenhof.circleimageview.CircleImageView
-       android:id="@+id/profileIamge"
+       android:id="@+id/profileImage"
        android:layout_width="50dp"
        android:layout_height="50dp"
        app:civ_border_color="#707070"
@@ -25,10 +24,11 @@
         android:layout_marginLeft="19dp"
         android:text="전유희"/>
 
-    <ImageView
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="23dp"
-        android:src="@drawable/check"/>
+        android:button="@drawable/un_check"/>
 
 </LinearLayout>

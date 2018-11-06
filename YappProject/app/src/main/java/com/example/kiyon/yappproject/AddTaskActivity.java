@@ -97,7 +97,7 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
-        taskName_edit.addTextChangedListener(new TextWatcher() {
+            taskSub_edit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -105,10 +105,13 @@ public class AddTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(taskName_edit.length() == 0 && taskSub_edit.length() == 0) {
+                if(taskName_edit.length() == 0 || charSequence.length() == 0) {
                     createBtn.setEnabled(false);
                     createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
-                } else {
+                }else if(taskName_edit.length() == 0 && charSequence.length() == 0) {
+                    createBtn.setEnabled(false);
+                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
+                }else {
                     createBtn.setEnabled(true);
                     createBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
                 }

@@ -46,7 +46,7 @@ public interface ApiService {
 
     //과제생성
     @GET("get/team")
-    Call<AddTaskResponseResult> AddTaskResponesResult (
+    Call<ArrayList<AddTaskResponseResult>> AddTaskResponesResult (
             @Query("tmcode") String tmcode
     );
 }

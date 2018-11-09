@@ -19,11 +19,15 @@ import java.util.ArrayList;
 import static com.example.kiyon.yappproject.AddTaskActivity.USER_DATA;
 
 public class TaskMemberActivity extends AppCompatActivity implements MemberListRVAdapter.ItemClickListener {
+
     RecyclerView recyclerView1,recyclerView2;
     MemberListRVAdapter memberListRVAdapter;
-    ArrayList<UserResponseResult> userResponseResults;
+    ArrayList<UserResponseResult> userResponseResults = new ArrayList<>();
     UserResponseResult[] memberArray;
     ArrayList<UserResponseResult> list = new ArrayList<>();
+    AttendTeamMemberRVAdapter attendTeamMemberRVAdapter;
+
+
 
     public static Intent newIntent (Context context, ArrayList<UserResponseResult> list) {
         Intent intent = new Intent(context, TaskMemberActivity.class);
@@ -43,8 +47,6 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
         memberListRVAdapter.setClickListener(this);
         recyclerView2.setAdapter(memberListRVAdapter);
 
-        userResponseResults = new ArrayList<>();
-
         Intent intent = getIntent();
         list = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
 
@@ -56,33 +58,37 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
         recyclerView1 = findViewById(R.id.recyclerview1);
         recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
+        //attendTeamMemberRVAdapter.setClickListener();
+        attendTeamMemberRVAdapter = new AttendTeamMemberRVAdapter(userResponseResults,TaskMemberActivity.this);
+
+        attendTeamMemberRVAdapter.setClickListener(new AttendTeamMemberRVAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(int pos, boolean check, UserResponseResult person) {
+                Log.e("TAG","onItemClick");
+            }
+        });
     }
 
     public void onClickTaskMember(View v) {
         switch (v.getId()) {
             case R.id.backBtn:      //<- 버튼 눌렀을 때
                 Intent intent = new Intent(TaskMemberActivity.this, AddTaskActivity.class);
-                intent.putExtra("add_member",userResponseResults);
-                intent.putExtra("member",list);
-                startActivity(intent);
+                intent.putExtra("result",userResponseResults.size() + "명");
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
         }
     }
 
+
     @Override
     public void onItemClick(int pos, boolean check, UserResponseResult person) {
-        userResponseResults = new ArrayList<>();
 
         if(check) {
-            memberArray[pos] = person;
-        }else {
-            memberArray[pos] = null;
+            userResponseResults.add(person);
         }
-        for(UserResponseResult user : memberArray) {
-            if (user != null) {
-                userResponseResults.add(user);
-            }
+        else {
+            userResponseResults.remove(person);
         }
 
         AttendTeamMemberRVAdapter attendTeamMemberRVAdapter = new AttendTeamMemberRVAdapter(userResponseResults,TaskMemberActivity.this);

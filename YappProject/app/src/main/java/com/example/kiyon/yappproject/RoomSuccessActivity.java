@@ -6,9 +6,11 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -63,7 +65,7 @@ public class RoomSuccessActivity extends AppCompatActivity {
         StatusBarColorChange.setStatusBarColor(RoomSuccessActivity.this, getResources().getColor(R.color.yellow));
 
         // intent 가져오기
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String roomName = intent.getStringExtra(ROOM_NAME);
         String subjectName = "'" + intent.getStringExtra(SUBJECT_NAME) + "'";
         final String roomCode = intent.getStringExtra(ROOM_CODE);
@@ -103,6 +105,13 @@ public class RoomSuccessActivity extends AppCompatActivity {
                 ClipData clipData = ClipData.newPlainText("방코드",roomCode);
                 Log.d("roomValue", "클립보드:"+ roomCode);
                 clipboardManager.setPrimaryClip(clipData);
+                //방코드 저장
+                //SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("tmcode",roomCode);
+                editor.commit();
+                ////
                 setDialogView();
             }
         });

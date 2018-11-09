@@ -2,26 +2,22 @@ package com.example.kiyon.yappproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import com.example.kiyon.yappproject.common.RetrofitServerClient;
+import com.example.kiyon.yappproject.model.AddTaskResponseResult;
 import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
-import com.kakao.usermgmt.response.model.User;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -31,7 +27,10 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -105,36 +104,37 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
 
-            taskSub_edit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(taskName_edit.length() == 0 || charSequence.length() == 0) {
-                    createBtn.setEnabled(false);
-                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
-                }else if(taskName_edit.length() == 0 && charSequence.length() == 0) {
-                    createBtn.setEnabled(false);
-                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
-                }else {
-                    createBtn.setEnabled(true);
-                    createBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+//            taskSub_edit.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                if(taskName_edit.length() == 0 || charSequence.length() == 0) {
+//                    createBtn.setEnabled(false);
+//                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
+//                }else if(taskName_edit.length() == 0 && charSequence.length() == 0) {
+//                    createBtn.setEnabled(false);
+//                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
+//                }else {
+//                    createBtn.setEnabled(true);
+//                    createBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
     }
 
     public void onClickCreateTask(View v) {
         switch (v.getId()) {
             case R.id.taskCreateBtn:
+                createTask();
                 break;
             case R.id.taskDateBtn:
                 materialCalender.setVisibility(View.VISIBLE);
@@ -143,13 +143,23 @@ public class AddTaskActivity extends AppCompatActivity {
                 break;
             case R.id.taskMemberBtn:
                 Intent intent = TaskMemberActivity.newIntent(AddTaskActivity.this,userResponseResults);
-                intent.putExtra("member_list",userResponseResults);
-                startActivity(intent);
+                startActivityForResult(intent,3000);
                 break;
             case R.id.relativeLayout:
                 inputMethodManager.hideSoftInputFromWindow(taskSub_edit.getWindowToken(), 0);
                 inputMethodManager.hideSoftInputFromWindow(taskName_edit.getWindowToken(), 0);
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 3000:
+                    memberCount.setText(data.getStringExtra("result"));
+                    break;
+            }
         }
     }
 
@@ -193,6 +203,33 @@ public class AddTaskActivity extends AppCompatActivity {
         public void decorate(DayViewFacade view) {
             view.addSpan(new ForegroundColorSpan(Color.BLUE));
         }
+    }
+
+    private void createTask() {
+        //SharedPreferences sharedPreferences = getSharedPreferences("DITO",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddTaskActivity.this);
+        String roomCode =  sharedPreferences.getString("tmcode",null);
+
+        Call<ArrayList<AddTaskResponseResult>> call = RetrofitServerClient.getInstance().getService().AddTaskResponesResult(roomCode);
+        Log.e("TAG",String.valueOf(call.request().url()));
+        call.enqueue(new Callback<ArrayList<AddTaskResponseResult>>() {
+            @Override
+            public void onResponse(Call<ArrayList<AddTaskResponseResult>> call, Response<ArrayList<AddTaskResponseResult>> response) {
+                if(response.isSuccessful()) {
+
+                    ArrayList<AddTaskResponseResult> addTaskResponseResults = response.body();
+
+                    if(addTaskResponseResults != null) {
+                        Log.e("TAG",addTaskResponseResults.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<AddTaskResponseResult>> call, Throwable t) {
+                Log.e("TAG_F",t.getMessage());
+            }
+        });
     }
 
 }

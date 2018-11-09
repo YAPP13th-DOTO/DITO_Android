@@ -109,7 +109,7 @@ public class RoomDetailActivity extends AppCompatActivity {
 
         ImageView moreProfile = findViewById(R.id.moreProfile_iv);
         moreProfile.setOnClickListener(onClickListener);
-
+        subject_add.setOnClickListener(onClickListener);
 
     }
 

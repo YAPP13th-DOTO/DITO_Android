@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.kakao.usermgmt.response.model.User;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -35,12 +37,13 @@ public class AddTaskActivity extends AppCompatActivity {
 
     public static final String USER_DATA = "USER_DATA";
 
-    EditText taskName_edit, taskSub_edit;
-    TextView memberCount, dateCount;
-    Button memberBtn, dateBtn,createBtn;
-    MaterialCalendarView materialCalender;
-    InputMethodManager inputMethodManager;
-    private ArrayList<UserResponseResult> userResponseResults;
+    private EditText taskName_edit, taskSub_edit;
+    private TextView memberCount, dateCount;
+    private Button memberBtn, dateBtn,createBtn;
+    private MaterialCalendarView materialCalender;
+    private InputMethodManager inputMethodManager;
+    private ArrayList<UserResponseResult> userResponseResults = new ArrayList<>();
+    private ArrayList<UserResponseResult> add_member_list = new ArrayList<>();
 
     public static Intent newIntent(Context context, ArrayList<UserResponseResult> list) {
         Intent intent = new Intent(context, AddTaskActivity.class);
@@ -54,10 +57,6 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        //인텐트 정보
-        Intent intent = getIntent();
-        userResponseResults = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
-
         inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         taskName_edit = findViewById(R.id.taskNameEdit);
         taskSub_edit = findViewById(R.id.taskSubEdit);
@@ -66,6 +65,15 @@ public class AddTaskActivity extends AppCompatActivity {
         memberCount = findViewById(R.id.memberCount);
         dateCount = findViewById(R.id.dateCount);
         createBtn = findViewById(R.id.taskCreateBtn);
+
+        //인텐트 정보
+        Intent intent = getIntent();
+        userResponseResults = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
+        add_member_list = (ArrayList<UserResponseResult>) intent.getExtras().get("add_member");
+        //Log.e("TAG","add member = " + add_member_list.size());
+        if(add_member_list != null) {
+            memberCount.setText(add_member_list.size() + "명");
+        }
 
         //달력 설정
         materialCalender = findViewById(R.id.materialCalender);
@@ -135,6 +143,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 break;
             case R.id.taskMemberBtn:
                 Intent intent = TaskMemberActivity.newIntent(AddTaskActivity.this,userResponseResults);
+                intent.putExtra("member_list",userResponseResults);
                 startActivity(intent);
                 break;
             case R.id.relativeLayout:

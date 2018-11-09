@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ArrayList<UserResponseResult> userResponseResults;
     private Context context;
+    private MemberListRVAdapter.ItemClickListener itemClickListener;
 
     public MemberListRVAdapter(Context context) {
         this.context = context;
@@ -53,7 +55,7 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final MemberListVH memberListVH = (MemberListVH) holder;
 
         if(userResponseResults.get(position).user_pic.equals("undefined")) {
@@ -69,8 +71,12 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(memberListVH.checkBox.isChecked() == true) {
+                    Log.e("TAG", String.valueOf(userResponseResults.get(position)));
+                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
+                    //userResponseResults.get(position) 값이 없음.
                     memberListVH.checkBox.setButtonDrawable(R.drawable.check);
                 } else {
+                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
                     memberListVH.checkBox.setButtonDrawable(R.drawable.un_check);
                 }
             }
@@ -82,5 +88,11 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return userResponseResults.size();
     }
 
+    public void setClickListener(MemberListRVAdapter.ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
 
+    public interface ItemClickListener {
+        void onItemClick(int pos, boolean check, UserResponseResult person);
+    }
 }

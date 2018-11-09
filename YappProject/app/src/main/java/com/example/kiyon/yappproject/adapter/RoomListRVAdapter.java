@@ -102,7 +102,7 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (lists.size() > EXTRA_PEOPLE) { // 참여 인워수가 3명 초과일 경우
 
             roomListVH.additionalUser_tv.setVisibility(View.VISIBLE);
-            roomListVH.additionalUser_tv.setText(lists.size() - EXTRA_PEOPLE);
+            roomListVH.additionalUser_tv.setText("+" + String.valueOf(lists.size() - EXTRA_PEOPLE));
 
             if (lists.get(0).user_pic.equals("undefined")) {
                 Glide.with(mContext).load(R.drawable.test_user).into(roomListVH.profile_image1);

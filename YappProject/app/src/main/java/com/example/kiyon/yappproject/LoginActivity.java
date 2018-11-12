@@ -54,7 +54,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private String profileImagePath;
 
-    private  String UUID;
+    private  String uid;
+
+    private boolean isChecked = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onSessionClosed(ErrorResult errorResult) {
 
                     Log.e("SessionCallback :: ", "onSessionClosed : " + errorResult.getErrorMessage());
+                    Log.e("SessionCallback :: ", "onSessionClosed : " + errorResult.getErrorCode());
                     if (errorResult.getErrorMessage().equals("this access token does not exist")) {
                         Toasty.warning(LoginActivity.this , "다시 한번 시도해주세요.", Toast.LENGTH_LONG).show();
                     }
@@ -158,8 +161,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     nickname = userProfile.getNickname();
                     profileImagePath = userProfile.getProfileImagePath();
-                    UUID = userProfile.getUUID();
-                    loadData(UUID, nickname, profileImagePath);
+                    uid = String.valueOf(userProfile.getId());
+                    userProfile.getUUID()
+                    if (isChecked) {
+                        isChecked = false;
+                        loadData(uid, nickname, profileImagePath);
+                    }
+
 
 //                    long id = userProfile.getId();
 //                    String thumnailPath = userProfile.getThumbnailImagePath();
@@ -191,36 +199,42 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-    public void loadData(final String UUID, final String nickname, final String profileImagePath) {
-        Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().LoginResponseResult(UUID, nickname, profileImagePath);
-        call.enqueue(new Callback<LoginResponseResult>() {
-            @Override
-            public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
-                if (response.isSuccessful()) {
-                    LoginResponseResult loginResponseResult = response.body();
-                    if (loginResponseResult != null) {
-                        if (loginResponseResult.answer.equals("success")) {
-                            SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("userID", UUID);
-                            editor.putString("userName", nickname);
-                            editor.putString("userImage", profileImagePath);
-                            editor.apply();
+    public void loadData(final String uid, final String nickname, final String profileImagePath) {
+        if (uid != null) {
+            Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().LoginResponseResult(uid, nickname, profileImagePath);
+            Log.d("test1414", String.valueOf(call.request().url()));
+            call.enqueue(new Callback<LoginResponseResult>() {
+                @Override
+                public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
+                    if (response.isSuccessful()) {
+                        LoginResponseResult loginResponseResult = response.body();
+                        if (loginResponseResult != null) {
+                            if (loginResponseResult.answer.equals("success")) {
+                                SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("userID", uid);
+                                editor.putString("userName", nickname);
+                                editor.putString("userImage", profileImagePath);
+                                editor.apply();
 
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                                isChecked = true;
+                            }
                         }
                     }
+
                 }
 
-            }
+                @Override
+                public void onFailure(Call<LoginResponseResult> call, Throwable t) {
+                    Log.d("errorMsg", t.getMessage());
 
-            @Override
-            public void onFailure(Call<LoginResponseResult> call, Throwable t) {
-                Log.d("errorMsg", t.getMessage());
-
-            }
-        });
+                }
+            });
+        } else {
+            // 카카오 로그인이 실패 했을 경우
+        }
     }
 }

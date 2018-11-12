@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.model.LoginResponseResult;
@@ -46,28 +47,37 @@ public class SplashActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
         String userID = sharedPreferences.getString("userID", null);
 
-        Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().ConfirmResponseResult(userID);
-        call.enqueue(new Callback<LoginResponseResult>() {
-            @Override
-            public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
-                if (response.isSuccessful()) {
-                    LoginResponseResult loginResponseResult = response.body();
-                    if (loginResponseResult != null) {
-                        if (loginResponseResult.answer.equals("access")) {
-                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        } else { // 유저가 로그인을 한적이 없거나 서버에 유저 정보값이 저장되어 있지 않을때
-                            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                            startActivity(intent);
+        if (userID == null) { // 휴대폰에 로그인 기록이 없을 경우
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else { // 기록이 있을 경우
+            Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().ConfirmResponseResult(userID);
+            call.enqueue(new Callback<LoginResponseResult>() {
+                @Override
+                public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {
+                    if (response.isSuccessful()) {
+                        LoginResponseResult loginResponseResult = response.body();
+                        if (loginResponseResult != null) {
+                            if (loginResponseResult.answer.equals("access")) {
+                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else { // 유저가 로그인을 한적이 없거나 서버에 유저 정보값이 저장되어 있지 않을때
+                                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<LoginResponseResult> call, Throwable t) {
-                Log.d("SplashActivity", t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<LoginResponseResult> call, Throwable t) {
+                    // 서버 에러
+                }
+            });
+        }
+
     }
 }

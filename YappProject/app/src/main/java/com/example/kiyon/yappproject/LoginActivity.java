@@ -162,7 +162,6 @@ public class LoginActivity extends AppCompatActivity {
                     nickname = userProfile.getNickname();
                     profileImagePath = userProfile.getProfileImagePath();
                     uid = String.valueOf(userProfile.getId());
-                    userProfile.getUUID()
                     if (isChecked) {
                         isChecked = false;
                         loadData(uid, nickname, profileImagePath);

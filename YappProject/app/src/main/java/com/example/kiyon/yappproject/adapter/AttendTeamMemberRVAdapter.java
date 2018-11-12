@@ -3,44 +3,35 @@ package com.example.kiyon.yappproject.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
-import com.kakao.usermgmt.response.model.User;
 
 import java.util.ArrayList;
 
 public class AttendTeamMemberRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private ArrayList<UserResponseResult> userResponseResults;
-    private AttendTeamMemberRVAdapter.ItemClickListener itemClickListener;
 
     public AttendTeamMemberRVAdapter(ArrayList<UserResponseResult> lists,Context context) {
         this.context = context;
         this.userResponseResults = lists;
-        //userResponseResults = new ArrayList<>();
     }
 
     public class AttendTeamMemberRV extends RecyclerView.ViewHolder {
         private ImageView profile_img;
         private TextView user_name;
-        private CheckBox deleteBtn;
 
         public AttendTeamMemberRV(View itemView) {
             super(itemView);
             profile_img = itemView.findViewById(R.id.image);
             user_name = itemView.findViewById(R.id.user_name);
-            deleteBtn = itemView.findViewById(R.id.deleteBtn);
         }
     }
 
@@ -61,33 +52,10 @@ public class AttendTeamMemberRVAdapter extends RecyclerView.Adapter<RecyclerView
             Glide.with(context).load(userResponseResults.get(position).user_pic).into(attendTeamMemberRV.profile_img);
         }
         attendTeamMemberRV.user_name.setText(userResponseResults.get(position).user_name);
-
-        attendTeamMemberRV.deleteBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(attendTeamMemberRV.deleteBtn.isChecked()) {
-                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
-                    Log.e("TAG","click");
-                } else {
-                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
-                    attendTeamMemberRV.deleteBtn.setButtonDrawable(R.drawable.delete);
-                    Log.e("TAG","un_click");
-                }
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return userResponseResults.size();
-    }
-
-    public void setClickListener(AttendTeamMemberRVAdapter.ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(int pos, boolean check, UserResponseResult person);
     }
 }

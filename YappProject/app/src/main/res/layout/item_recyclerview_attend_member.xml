@@ -17,13 +17,6 @@
             android:layout_height="50dp"
             app:civ_border_color="#707070"
             app:civ_border_width="1dp"/>
-
-        <CheckBox
-            android:id="@+id/deleteBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:button="@drawable/delete"/>
     </RelativeLayout>
 
     <TextView

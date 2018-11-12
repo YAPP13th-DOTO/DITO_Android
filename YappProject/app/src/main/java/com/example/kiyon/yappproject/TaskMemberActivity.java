@@ -2,6 +2,8 @@ package com.example.kiyon.yappproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import com.example.kiyon.yappproject.adapter.AttendTeamMemberRVAdapter;
 import com.example.kiyon.yappproject.adapter.MemberListRVAdapter;
 import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -26,8 +30,6 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
     UserResponseResult[] memberArray;
     ArrayList<UserResponseResult> list = new ArrayList<>();
     AttendTeamMemberRVAdapter attendTeamMemberRVAdapter;
-
-
 
     public static Intent newIntent (Context context, ArrayList<UserResponseResult> list) {
         Intent intent = new Intent(context, TaskMemberActivity.class);
@@ -58,15 +60,8 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
         recyclerView1 = findViewById(R.id.recyclerview1);
         recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        //attendTeamMemberRVAdapter.setClickListener();
         attendTeamMemberRVAdapter = new AttendTeamMemberRVAdapter(userResponseResults,TaskMemberActivity.this);
 
-        attendTeamMemberRVAdapter.setClickListener(new AttendTeamMemberRVAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(int pos, boolean check, UserResponseResult person) {
-                Log.e("TAG","onItemClick");
-            }
-        });
     }
 
     public void onClickTaskMember(View v) {

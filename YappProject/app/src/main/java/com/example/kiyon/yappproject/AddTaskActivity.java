@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,9 @@ import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +48,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private InputMethodManager inputMethodManager;
     private ArrayList<UserResponseResult> userResponseResults = new ArrayList<>();
     private ArrayList<UserResponseResult> add_member_list = new ArrayList<>();
+    private String shot_Day = "";
 
     public static Intent newIntent(Context context, ArrayList<UserResponseResult> list) {
         Intent intent = new Intent(context, AddTaskActivity.class);
@@ -69,7 +75,7 @@ public class AddTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userResponseResults = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
         add_member_list = (ArrayList<UserResponseResult>) intent.getExtras().get("add_member");
-        //Log.e("TAG","add member = " + add_member_list.size());
+
         if(add_member_list != null) {
             memberCount.setText(add_member_list.size() + "명");
         }
@@ -91,10 +97,11 @@ public class AddTaskActivity extends AppCompatActivity {
         materialCalender.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                int year = date.getYear();
                 int month = date.getMonth()+1;
                 int day = date.getDay();
 
-                String shot_Day =  month + "월 " + day + "일";
+                shot_Day = year + "년 " +  month + "월 " + day + "일";
 
                 dateCount.setText(shot_Day);
 
@@ -103,38 +110,49 @@ public class AddTaskActivity extends AppCompatActivity {
                 dateBtn.setVisibility(View.VISIBLE);
             }
         });
+        createBtn.setEnabled(false);
 
-//            taskSub_edit.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if(taskName_edit.length() == 0 || charSequence.length() == 0) {
-//                    createBtn.setEnabled(false);
-//                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
-//                }else if(taskName_edit.length() == 0 && charSequence.length() == 0) {
-//                    createBtn.setEnabled(false);
-//                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
-//                }else {
-//                    createBtn.setEnabled(true);
-//                    createBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
+        dateCount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(memberCount.length() == 0 || charSequence.length() == 0) {
+                    createBtn.setEnabled(false);
+                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
+                }else if(memberCount.length() == 0 && charSequence.length() == 0) {
+                    createBtn.setEnabled(false);
+                    createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
+                }else {
+                    createBtn.setEnabled(true);
+                    createBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     public void onClickCreateTask(View v) {
         switch (v.getId()) {
             case R.id.taskCreateBtn:
-                createTask();
+                //SharedPreferences sharedPreferences = getSharedPreferences("DITO",MODE_PRIVATE);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddTaskActivity.this);
+                String tmcode =  sharedPreferences.getString("tmcode",null);
+
+                String asname = taskName_edit.getText().toString();
+                String ascontent = taskSub_edit.getText().toString();
+                String asdl = shot_Day;
+                ArrayList<String> users = new ArrayList<>();
+
+                createTask(tmcode,asname,ascontent,asdl,users);
+
                 break;
             case R.id.taskDateBtn:
                 materialCalender.setVisibility(View.VISIBLE);
@@ -148,7 +166,10 @@ public class AddTaskActivity extends AppCompatActivity {
             case R.id.relativeLayout:
                 inputMethodManager.hideSoftInputFromWindow(taskSub_edit.getWindowToken(), 0);
                 inputMethodManager.hideSoftInputFromWindow(taskName_edit.getWindowToken(), 0);
-
+                break;
+            case R.id.backBtn:
+                finish();
+                break;
         }
     }
 
@@ -205,28 +226,22 @@ public class AddTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void createTask() {
-        //SharedPreferences sharedPreferences = getSharedPreferences("DITO",MODE_PRIVATE);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddTaskActivity.this);
-        String roomCode =  sharedPreferences.getString("tmcode",null);
+    private void createTask(String tmcode,String asname, String ascontent, String asdl,ArrayList<String> users) {
 
-        Call<ArrayList<AddTaskResponseResult>> call = RetrofitServerClient.getInstance().getService().AddTaskResponesResult(roomCode);
+        Call<AddTaskResponseResult> call = RetrofitServerClient.getInstance().getService().addTaskResponseResult(tmcode,asname,ascontent,asdl,users);
         Log.e("TAG",String.valueOf(call.request().url()));
-        call.enqueue(new Callback<ArrayList<AddTaskResponseResult>>() {
+        call.enqueue(new Callback<AddTaskResponseResult>() {
             @Override
-            public void onResponse(Call<ArrayList<AddTaskResponseResult>> call, Response<ArrayList<AddTaskResponseResult>> response) {
+            public void onResponse(Call<AddTaskResponseResult> call, Response<AddTaskResponseResult> response) {
                 if(response.isSuccessful()) {
-
-                    ArrayList<AddTaskResponseResult> addTaskResponseResults = response.body();
-
-                    if(addTaskResponseResults != null) {
-                        Log.e("TAG",addTaskResponseResults.toString());
-                    }
+                    Log.e("TAG_R","success");
+                }else {
+                    Log.e("TAG_R", response.errorBody().toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<AddTaskResponseResult>> call, Throwable t) {
+            public void onFailure(Call<AddTaskResponseResult> call, Throwable t) {
                 Log.e("TAG_F",t.getMessage());
             }
         });

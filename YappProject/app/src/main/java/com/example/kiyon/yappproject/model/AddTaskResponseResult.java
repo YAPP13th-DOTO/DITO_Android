@@ -1,10 +1,16 @@
 package com.example.kiyon.yappproject.model;
 
-
-import java.util.ArrayList;
-
 public class AddTaskResponseResult {
 
-    //public ArrayList<AddTaskResponseResult> answer;
-    public String tm_code;
+    public String tmcode;
+    public String asname;
+    public String ascontent;
+    public String asdl;
+
+    AddTaskResponseResult(String tmcode, String asname, String ascontent, String asdl) {
+        this.tmcode = tmcode;
+        this.asname = asname;
+        this.ascontent = ascontent;
+        this.asdl = asdl;
+    }
 }

@@ -183,8 +183,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
         String userID = sharedPreferences.getString("userID", null);
+        Log.e("TAG","user = " + userID);
 
         Call<ArrayList<RoomListResponseResult>> call = RetrofitServerClient.getInstance().getService().RoomListResponseResult(userID);
+        //Log.e("TAG",String.valueOf(call.request().url()));
         call.enqueue(new Callback<ArrayList<RoomListResponseResult>>() {
             @Override
             public void onResponse(Call<ArrayList<RoomListResponseResult>> call, Response<ArrayList<RoomListResponseResult>> response) {

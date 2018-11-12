@@ -6,10 +6,13 @@ import com.example.kiyon.yappproject.model.CreateRoomResponseResult;
 import com.example.kiyon.yappproject.model.LoginResponseResult;
 import com.example.kiyon.yappproject.model.RoomList.RoomListResponseResult;
 
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -44,9 +47,14 @@ public interface ApiService {
       @Query("code") String code, @Query("id") String id
     );
 
-    //과제생성
-    @GET("get/team")
-    Call<ArrayList<AddTaskResponseResult>> AddTaskResponesResult (
-            @Query("tmcode") String tmcode
+    //과제 생성
+    @POST("create/assign")
+    Call<AddTaskResponseResult> addTaskResponseResult(
+            @Field("tmcode") String tmcode,
+            @Field("asname") String asname,
+            @Field("ascontent") String ascontent,
+            @Field("asdl") String asdl,
+            @Field("user") ArrayList<String> user
     );
+
 }

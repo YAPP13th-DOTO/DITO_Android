@@ -2,8 +2,6 @@ package com.example.kiyon.yappproject.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,9 +69,7 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(memberListVH.checkBox.isChecked() == true) {
-                    Log.e("TAG", String.valueOf(userResponseResults.get(position)));
                     if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
-                    //userResponseResults.get(position) 값이 없음.
                     memberListVH.checkBox.setButtonDrawable(R.drawable.check);
                 } else {
                     if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));

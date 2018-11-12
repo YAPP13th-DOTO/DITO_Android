@@ -47,6 +47,7 @@ public class SplashActivity extends AppCompatActivity {
         String userID = sharedPreferences.getString("userID", null);
 
         Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().ConfirmResponseResult(userID);
+        Log.e("TAG",String.valueOf(call.request().url()));
         call.enqueue(new Callback<LoginResponseResult>() {
             @Override
             public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {

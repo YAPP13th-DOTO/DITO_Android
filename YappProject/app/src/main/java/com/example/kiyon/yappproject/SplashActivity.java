@@ -75,6 +75,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<LoginResponseResult> call, Throwable t) {
                     // 서버 에러
+                    Toast.makeText(getApplicationContext(), "서버 오류" , Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject.model.RoomList;
+package com.example.kiyon.yappproject.model.Room;
 
 import java.io.Serializable;
 import java.util.ArrayList;

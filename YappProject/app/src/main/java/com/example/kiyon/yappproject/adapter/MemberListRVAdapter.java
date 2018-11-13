@@ -3,7 +3,6 @@ package com.example.kiyon.yappproject.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
-import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.UserResponseResult;
 
 import java.util.ArrayList;
 

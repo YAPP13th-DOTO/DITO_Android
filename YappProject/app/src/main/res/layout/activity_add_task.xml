@@ -82,72 +82,89 @@
         android:layout_below="@id/subjectSubTxt"
         android:hint="과제 내용을 입력헤주세요."/>
 
-    <TextView
-        android:id="@+id/taskMemberTxt"
+    <RelativeLayout
+        android:id="@+id/layout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:textColor="#0f0f0f"
         android:layout_below="@id/taskSubEdit"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="40dp"
-        android:text="과제 수행자 지정하기"/>
+        android:layout_marginTop="40dp">
+        <TextView
+            android:id="@+id/taskMemberTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_centerVertical="true"
+            android:textColor="#0f0f0f"
+            android:layout_marginLeft="25dp"
+            android:text="과제 수행자 지정하기"/>
+        <LinearLayout
+            android:id="@+id/taskMemberLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_marginRight="25dp"
+            android:padding="5dp"
+            android:onClick="onClickCreateTask"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/memberCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:textColor="#adadad" />
+            <Button
+                android:id="@+id/taskMemberBtn"
+                android:layout_width="8dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/btn_more"
+                android:onClick="onClickCreateTask" />
+        </LinearLayout>
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/taskMemberBtn"
-        android:layout_width="8dp"
-        android:layout_height="20dp"
-        android:background="@drawable/btn_more"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:onClick="onClickCreateTask"
-        android:layout_marginTop="40dp"
-        android:layout_below="@id/taskSubEdit"/>
-
-    <TextView
-        android:id="@+id/memberCount"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/taskDateBtn"
-        android:layout_below="@id/taskSubEdit"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="7dp"
-        android:textColor="#adadad"
-        />
+        android:layout_below="@id/layout1"
+        android:layout_marginTop="30dp">
+        <TextView
+            android:id="@+id/taskDateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#0f0f0f"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:text="과제 기한 설정하기"/>
+        <LinearLayout
+            android:id="@+id/taskDateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_marginRight="25dp"
+            android:padding="5dp"
+            android:layout_marginTop="1dp"
+            android:onClick="onClickCreateTask"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/dateCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp" />
+            <Button
+                android:id="@+id/taskDateBtn"
+                android:layout_width="8dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_more"
+                android:onClick="onClickCreateTask"
+                android:textSize="18dp" />
+        </LinearLayout>
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/taskDateTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:textColor="#0f0f0f"
-        android:layout_below="@id/taskMemberTxt"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="40dp"
-        android:text="과제 기한 설정하기"/>
-
-    <Button
-        android:id="@+id/taskDateBtn"
-        android:layout_width="8dp"
-        android:layout_height="20dp"
-        android:background="@drawable/btn_more"
-        android:layout_marginRight="30dp"
-        android:layout_alignParentRight="true"
-        android:onClick="onClickCreateTask"
-        android:textSize="18dp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@id/taskMemberTxt"/>
-
-    <TextView
-        android:id="@+id/dateCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/taskDateBtn"
-        android:layout_below="@id/memberCount"
-        android:layout_marginTop="45dp"
-        android:layout_marginRight="7dp"
-        android:textColor="#adadad"
-        />
 
     <Button
         android:id="@+id/taskCreateBtn"

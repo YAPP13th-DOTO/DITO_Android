@@ -111,7 +111,7 @@ public class RoomSuccessActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("tmcode",roomCode);
                 editor.commit();
-                ////
+
                 setDialogView();
             }
         });

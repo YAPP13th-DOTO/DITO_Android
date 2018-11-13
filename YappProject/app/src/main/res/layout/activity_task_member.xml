@@ -40,10 +40,13 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/recyclerview_Layout"
         android:layout_width="match_parent"
         android:layout_height="121dp"
         android:paddingTop="24dp"
+        android:paddingLeft="16dp"
+        android:background="#f9f9f9"
+        android:visibility="gone"
         android:layout_below="@id/appBarLayout"
         android:orientation="horizontal">
 
@@ -51,7 +54,6 @@
             android:id="@+id/recyclerview1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
@@ -61,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="25dp"
-        android:layout_below="@id/linearLayout"
+        android:layout_below="@id/recyclerview_Layout"
         android:background="#f2f2f2">
 
     </android.support.v7.widget.RecyclerView>

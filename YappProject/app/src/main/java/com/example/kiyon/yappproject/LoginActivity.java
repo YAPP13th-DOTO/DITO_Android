@@ -201,7 +201,6 @@ public class LoginActivity extends AppCompatActivity {
     public void loadData(final String uid, final String nickname, final String profileImagePath) {
         if (uid != null) {
             Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().LoginResponseResult(uid, nickname, profileImagePath);
-            Log.d("test1414", String.valueOf(call.request().url()));
             call.enqueue(new Callback<LoginResponseResult>() {
                 @Override
                 public void onResponse(Call<LoginResponseResult> call, Response<LoginResponseResult> response) {

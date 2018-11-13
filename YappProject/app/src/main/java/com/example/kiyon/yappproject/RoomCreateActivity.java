@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
-import com.example.kiyon.yappproject.model.CreateRoomResponseResult;
+import com.example.kiyon.yappproject.model.Room.CreateRoomResponseResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -2,9 +2,7 @@ package com.example.kiyon.yappproject;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,9 +15,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
-import com.example.kiyon.yappproject.model.AddTaskResponseResult;
-import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.example.kiyon.yappproject.model.BasicResponseResult;
+import com.example.kiyon.yappproject.model.Room.UserResponseResult;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -27,9 +27,13 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,9 +48,11 @@ public class AddTaskActivity extends AppCompatActivity {
     private MaterialCalendarView materialCalender;
     private InputMethodManager inputMethodManager;
     private ArrayList<UserResponseResult> userResponseResults = new ArrayList<>();
-    private ArrayList<UserResponseResult> add_member_list = new ArrayList<>();
     private String shot_Day = "";
-    ArrayList<String> users = new ArrayList<>();
+    private ArrayList<UserResponseResult> attendUserLists = new ArrayList<>();
+    private ArrayList<String> attendUserIdLists = new ArrayList<>();
+
+    private String taskDeadline;
 
     public static Intent newIntent(Context context, ArrayList<UserResponseResult> list) {
         Intent intent = new Intent(context, AddTaskActivity.class);
@@ -72,11 +78,6 @@ public class AddTaskActivity extends AppCompatActivity {
         //인텐트 정보
         Intent intent = getIntent();
         userResponseResults = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
-        add_member_list = (ArrayList<UserResponseResult>) intent.getExtras().get("add_member");
-
-        if(add_member_list != null) {
-            memberCount.setText(add_member_list.size() + "명");
-        }
 
         //달력 설정
         materialCalender = findViewById(R.id.materialCalender);
@@ -99,7 +100,15 @@ public class AddTaskActivity extends AppCompatActivity {
                 int month = date.getMonth()+1;
                 int day = date.getDay();
 
-                shot_Day = year + "년 " +  month + "월 " + day + "일";
+                shot_Day = year + "년 " +  month + "월 " + day + "일"; // 화면에 보여줄 마감시간
+                String formatString = year + "년 " +  month + "월 " + day + "일 " + "23시 59분 59초"; // 서버에 전송할 마감시간
+
+                try { // 서버에서 원하는 형식으로 변형
+                    Date date1 = new SimpleDateFormat("yyyy년 M월 d일 HH시 mm분 ss초").parse(formatString);
+                    taskDeadline = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 dateCount.setText(shot_Day);
 
@@ -110,6 +119,7 @@ public class AddTaskActivity extends AppCompatActivity {
         });
         createBtn.setEnabled(false);
 
+        //taskName_edittaskSub_edit
         dateCount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -118,13 +128,33 @@ public class AddTaskActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(memberCount.length() == 0 || charSequence.length() == 0) {
+                if(memberCount.length() == 0 || charSequence.length() == 0 || taskSub_edit.getText() == null || taskName_edit.getText() == null) {
                     createBtn.setEnabled(false);
                     createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
-                }else if(memberCount.length() == 0 && charSequence.length() == 0) {
+                } else {
+                    createBtn.setEnabled(true);
+                    createBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        memberCount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(dateCount.length() == 0 || charSequence.length() == 0 || taskSub_edit.getText() == null || taskName_edit.getText() == null) {
                     createBtn.setEnabled(false);
                     createBtn.setBackgroundColor(Color.parseColor("#bfbfbf"));
-                }else {
+                } else {
                     createBtn.setEnabled(true);
                     createBtn.setBackgroundColor(getResources().getColor(R.color.yellow));
                 }
@@ -139,25 +169,30 @@ public class AddTaskActivity extends AppCompatActivity {
 
     public void onClickCreateTask(View v) {
         switch (v.getId()) {
-            case R.id.taskCreateBtn:
-                //SharedPreferences sharedPreferences = getSharedPreferences("DITO",MODE_PRIVATE);
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AddTaskActivity.this);
-                String tmcode =  sharedPreferences.getString("tmcode",null);
+            case R.id.taskCreateBtn: // 과제 만들기 버튼
+                if (taskName_edit.getText() == null) {
+                    Toasty.warning(AddTaskActivity.this, "과제명을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else if (taskSub_edit.getText() == null) {
+                    Toasty.warning(AddTaskActivity.this, "과제 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else if (memberCount.getText().equals("0명") || memberCount.length() == 0) {
+                    Toasty.warning(AddTaskActivity.this, "과제 수행자를 지정해주세요.", Toast.LENGTH_SHORT).show();
+                } else if (dateCount.length() == 0) {
+                    Toasty.warning(AddTaskActivity.this, "과제 기한을 설정해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    String tmcode =  attendUserLists.get(0).tm_code;
+                    String taskName = taskName_edit.getText().toString(); // 과제명
+                    String taskContent = taskSub_edit.getText().toString(); // 과제 내용
 
-                String asname = taskName_edit.getText().toString();
-                String ascontent = taskSub_edit.getText().toString();
-                String asdl = shot_Day;
-
-                Log.e("TAG","users = " + users);
-                createTask(tmcode,asname,ascontent,asdl,users);
+                    createTask(tmcode, taskName, taskContent, taskDeadline, attendUserIdLists);
+                }
 
                 break;
-            case R.id.taskDateBtn:
+            case R.id.taskDateLayout: // 기한 설정 하기
                 materialCalender.setVisibility(View.VISIBLE);
                 memberBtn.setVisibility(View.INVISIBLE);
                 dateBtn.setVisibility(View.INVISIBLE);
                 break;
-            case R.id.taskMemberBtn:
+            case R.id.taskMemberLayout: // 과제 멤버 추가하기
                 Intent intent = TaskMemberActivity.newIntent(AddTaskActivity.this,userResponseResults);
                 startActivityForResult(intent,3000);
                 break;
@@ -177,8 +212,11 @@ public class AddTaskActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 3000:
                     memberCount.setText(data.getStringExtra("result"));
-                    users = data.getStringArrayListExtra("users");
-                    Log.e("TAG","users = " + users);
+                    attendUserLists = (ArrayList<UserResponseResult>) data.getSerializableExtra("users");
+                    attendUserIdLists.clear();
+                    for (int i = 0; i < attendUserLists.size(); i++) {
+                        attendUserIdLists.add(attendUserLists.get(i).kakao_id);
+                    }
                     break;
             }
         }
@@ -226,29 +264,28 @@ public class AddTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void createTask(String tmcode, String asname, String ascontent, String asdl, ArrayList<String> users) {
+    private void createTask(String tmcode, String taskName, String taskContent, String taskDeadline, ArrayList<String> attendUserIdLists) {
 
-        Call<AddTaskResponseResult> call = RetrofitServerClient.getInstance().getService().addTaskResponseResult(tmcode,asname,ascontent,asdl,users);
-        Log.e("TAG",String.valueOf(call.request().url()));
-        call.enqueue(new Callback<AddTaskResponseResult>() {
+        Call<BasicResponseResult> call = RetrofitServerClient.getInstance().getService().AddTaskResponseResult(tmcode, taskName, taskContent, taskDeadline, attendUserIdLists);
+        call.enqueue(new Callback<BasicResponseResult>() {
             @Override
-            public void onResponse(Call<AddTaskResponseResult> call, Response<AddTaskResponseResult> response) {
+            public void onResponse(Call<BasicResponseResult> call, Response<BasicResponseResult> response) {
                 if(response.isSuccessful()) {
-                    Log.e("TAG_R","success");
-                    if(response.isSuccessful()) {
-                        AddTaskResponseResult addTaskResponseResult = response.body();
-                        if(addTaskResponseResult != null) {
-                            Log.e("TAG","addTaskResponseResult success");
+                    BasicResponseResult basicResponseResult = response.body();
+                    if (basicResponseResult != null) {
+                        if (basicResponseResult.answer.equals("access")) { // 과제 추가하기 성공
+                            Intent intent = new Intent(AddTaskActivity.this, RoomDetailActivity.class);
+                            setResult(RESULT_OK,intent);
+                            finish();
+                        } else {
+                            // 실패
                         }
                     }
-                }else {
-                    Log.e("TAG_R", response.errorBody().toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<AddTaskResponseResult> call, Throwable t) {
-                Log.e("TAG_F",t.getMessage());
+            public void onFailure(Call<BasicResponseResult> call, Throwable t) {
             }
         });
     }

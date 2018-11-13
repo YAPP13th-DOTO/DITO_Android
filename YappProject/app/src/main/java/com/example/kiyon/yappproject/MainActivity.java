@@ -27,7 +27,7 @@ import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
 import com.example.kiyon.yappproject.model.BasicResponseResult;
-import com.example.kiyon.yappproject.model.RoomList.RoomListResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -186,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         Log.e("TAG","user = " + userID);
 
         Call<ArrayList<RoomListResponseResult>> call = RetrofitServerClient.getInstance().getService().RoomListResponseResult(userID);
-        //Log.e("TAG",String.valueOf(call.request().url()));
         call.enqueue(new Callback<ArrayList<RoomListResponseResult>>() {
             @Override
             public void onResponse(Call<ArrayList<RoomListResponseResult>> call, Response<ArrayList<RoomListResponseResult>> response) {

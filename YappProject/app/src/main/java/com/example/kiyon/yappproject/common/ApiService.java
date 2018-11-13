@@ -1,16 +1,17 @@
 package com.example.kiyon.yappproject.common;
 
-import com.example.kiyon.yappproject.model.AddTaskResponseResult;
 import com.example.kiyon.yappproject.model.BasicResponseResult;
-import com.example.kiyon.yappproject.model.CreateRoomResponseResult;
+import com.example.kiyon.yappproject.model.Room.CreateRoomResponseResult;
 import com.example.kiyon.yappproject.model.LoginResponseResult;
-import com.example.kiyon.yappproject.model.RoomList.RoomListResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
+import com.example.kiyon.yappproject.model.Task.TaskListResponseResult;
 
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -48,13 +49,19 @@ public interface ApiService {
     );
 
     //과제 생성
+    @FormUrlEncoded
     @POST("create/assign")
-    Call<AddTaskResponseResult> addTaskResponseResult(
+    Call<BasicResponseResult> AddTaskResponseResult (
             @Field("tmcode") String tmcode,
             @Field("asname") String asname,
             @Field("ascontent") String ascontent,
             @Field("asdl") String asdl,
-            @Field("user") ArrayList<String> user
+            @Field("users") ArrayList<String> users
+    );
+
+    @GET("get/team/assign")
+    Call<TaskListResponseResult> TaskListResponseResult (
+            @Query("tmcode") String tmcode
     );
 
 }

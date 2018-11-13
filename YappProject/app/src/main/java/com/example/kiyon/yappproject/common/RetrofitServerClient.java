@@ -1,5 +1,8 @@
 package com.example.kiyon.yappproject.common;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,8 +24,15 @@ public class RetrofitServerClient {
 
     public ApiService getService() {
 
+        OkHttpClient okHttpClient = new OkHttpClient.Builder() // 네트워크 타임아웃 시간 설정
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

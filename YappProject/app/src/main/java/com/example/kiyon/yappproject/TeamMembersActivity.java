@@ -15,7 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.kiyon.yappproject.adapter.TeamMembersRVAdapter;
-import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.UserResponseResult;
 
 import java.util.ArrayList;
 

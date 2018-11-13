@@ -67,7 +67,16 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
     public void onClickTaskMember(View v) {
         switch (v.getId()) {
             case R.id.backBtn:      //<- 버튼 눌렀을 때
+                //유저 아이디 받아와서 보내기
+                JSONArray jsonArray = new JSONArray();
+                for(int i=0; i<userResponseResults.size(); i++) {
+                    jsonArray.put(userResponseResults.get(i).kakao_id);
+                }
+                Log.e("TAG","jsonArray = " + jsonArray.toString());
+                /////
+
                 Intent intent = new Intent(TaskMemberActivity.this, AddTaskActivity.class);
+                intent.putExtra("users",jsonArray.toString());
                 intent.putExtra("result",userResponseResults.size() + "명");
                 setResult(RESULT_OK,intent);
                 finish();

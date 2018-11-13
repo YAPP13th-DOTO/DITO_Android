@@ -68,7 +68,7 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(memberListVH.checkBox.isChecked() == true) {
+                if(memberListVH.checkBox.isChecked()) {
                     if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
                     memberListVH.checkBox.setButtonDrawable(R.drawable.check);
                 } else {

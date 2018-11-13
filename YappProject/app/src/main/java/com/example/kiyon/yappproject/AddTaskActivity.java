@@ -27,9 +27,6 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -49,6 +46,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private ArrayList<UserResponseResult> userResponseResults = new ArrayList<>();
     private ArrayList<UserResponseResult> add_member_list = new ArrayList<>();
     private String shot_Day = "";
+    ArrayList<String> users = new ArrayList<>();
 
     public static Intent newIntent(Context context, ArrayList<UserResponseResult> list) {
         Intent intent = new Intent(context, AddTaskActivity.class);
@@ -149,8 +147,8 @@ public class AddTaskActivity extends AppCompatActivity {
                 String asname = taskName_edit.getText().toString();
                 String ascontent = taskSub_edit.getText().toString();
                 String asdl = shot_Day;
-                ArrayList<String> users = new ArrayList<>();
 
+                Log.e("TAG","users = " + users);
                 createTask(tmcode,asname,ascontent,asdl,users);
 
                 break;
@@ -179,6 +177,8 @@ public class AddTaskActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 3000:
                     memberCount.setText(data.getStringExtra("result"));
+                    users = data.getStringArrayListExtra("users");
+                    Log.e("TAG","users = " + users);
                     break;
             }
         }
@@ -226,7 +226,7 @@ public class AddTaskActivity extends AppCompatActivity {
         }
     }
 
-    private void createTask(String tmcode,String asname, String ascontent, String asdl,ArrayList<String> users) {
+    private void createTask(String tmcode, String asname, String ascontent, String asdl, ArrayList<String> users) {
 
         Call<AddTaskResponseResult> call = RetrofitServerClient.getInstance().getService().addTaskResponseResult(tmcode,asname,ascontent,asdl,users);
         Log.e("TAG",String.valueOf(call.request().url()));
@@ -235,6 +235,12 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onResponse(Call<AddTaskResponseResult> call, Response<AddTaskResponseResult> response) {
                 if(response.isSuccessful()) {
                     Log.e("TAG_R","success");
+                    if(response.isSuccessful()) {
+                        AddTaskResponseResult addTaskResponseResult = response.body();
+                        if(addTaskResponseResult != null) {
+                            Log.e("TAG","addTaskResponseResult success");
+                        }
+                    }
                 }else {
                     Log.e("TAG_R", response.errorBody().toString());
                 }

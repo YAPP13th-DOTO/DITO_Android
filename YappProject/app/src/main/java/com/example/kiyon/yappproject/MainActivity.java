@@ -26,7 +26,7 @@ import com.example.kiyon.yappproject.adapter.RoomListRVAdapter;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
-import com.example.kiyon.yappproject.model.BasicResponseResult;
+import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;

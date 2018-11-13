@@ -1,8 +1,8 @@
 package com.example.kiyon.yappproject.common;
 
-import com.example.kiyon.yappproject.model.BasicResponseResult;
+import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.CreateRoomResponseResult;
-import com.example.kiyon.yappproject.model.LoginResponseResult;
+import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.example.kiyon.yappproject.model.Task.TaskListResponseResult;
 

@@ -7,8 +7,9 @@ import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,17 +20,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.kiyon.yappproject.model.RoomList.RoomListResponseResult;
-import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.example.kiyon.yappproject.adapter.TaskListRVAdapter;
+import com.example.kiyon.yappproject.common.RetrofitServerClient;
+import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
+import com.example.kiyon.yappproject.model.Task.TaskInfoItem;
+import com.example.kiyon.yappproject.model.Task.TaskListResponseResult;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RoomDetailActivity extends AppCompatActivity {
 
     private static final String ROOM_DATA = "ROOM_DATA";
 
+    private TaskListRVAdapter taskListRVAdapter;
+
     private RoomListResponseResult roomListResponseResult;
-    private ArrayList<UserResponseResult> userResponseResult;
+    private ArrayList<RoomAttendUsersItem> roomAttendUsersItem;
 
     private RelativeLayout head_layout;
     private TextView toolbarTitle_tv;
@@ -50,10 +61,15 @@ public class RoomDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_detail);
 
+        Initialize();
+        loadTasksData(); // 과제 리스트 가져오기
+    }
+
+    private void Initialize() {
         // 인텐트 가져오기
         Intent intent = getIntent();
         roomListResponseResult = (RoomListResponseResult) intent.getSerializableExtra(ROOM_DATA); // 방 정보
-        userResponseResult = roomListResponseResult.users; // 방에 참여한 유저 정보
+        roomAttendUsersItem = roomListResponseResult.users; // 방에 참여한 유저 정보
 
         // 툴바 셋팅
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -61,6 +77,12 @@ public class RoomDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icn_arrow_back);
+
+        // recyclerview 셋팅
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        taskListRVAdapter = new TaskListRVAdapter(RoomDetailActivity.this);
+        recyclerView.setAdapter(taskListRVAdapter);
 
         // 툴바 제목
         toolbarTitle_tv = findViewById(R.id.title_toolbar);
@@ -112,19 +134,18 @@ public class RoomDetailActivity extends AppCompatActivity {
         subject_add.setOnClickListener(onClickListener);
 
     }
-
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.moreProfile_iv :
-                    Intent intent = TeamMembersActivity.newIntent(RoomDetailActivity.this, userResponseResult);
+                    Intent intent = TeamMembersActivity.newIntent(RoomDetailActivity.this, roomAttendUsersItem);
                     startActivity(intent);
                     break;
                 case R.id.subjectAdd_btn :
                     // 과제 추가 버튼 작업
-                    Intent intent1 = AddTaskActivity.newIntent(RoomDetailActivity.this, userResponseResult);
-                    startActivity(intent1);
+                    Intent intent1 = AddTaskActivity.newIntent(RoomDetailActivity.this, roomAttendUsersItem);
+                    startActivityForResult(intent1, 4000);
                     break;
                 case R.id.roomDone_tv :
                     // 방 완료 버튼 작업
@@ -135,50 +156,82 @@ public class RoomDetailActivity extends AppCompatActivity {
 
     public void showProfileImage() {
 
-        int roomMemberSize = userResponseResult.size();
+        int roomMemberSize = roomAttendUsersItem.size();
 
         if (roomMemberSize >= 3) {
-            if (userResponseResult.get(0).user_pic.equals("undefined")) {
+            if (roomAttendUsersItem.get(0).user_pic.equals("undefined")) {
                 Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image1);
             } else {
-                Glide.with(RoomDetailActivity.this).load(userResponseResult.get(0).user_pic).into(profile_image1);
+                Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(0).user_pic).into(profile_image1);
             }
-            if (userResponseResult.get(1).user_pic.equals("undefined")) {
+            if (roomAttendUsersItem.get(1).user_pic.equals("undefined")) {
                 Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image2);
             } else {
-                Glide.with(RoomDetailActivity.this).load(userResponseResult.get(1).user_pic).into(profile_image2);
+                Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(1).user_pic).into(profile_image2);
             }
-            if (userResponseResult.get(2).user_pic.equals("undefined")) {
+            if (roomAttendUsersItem.get(2).user_pic.equals("undefined")) {
                 Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image3);
             } else {
-                Glide.with(RoomDetailActivity.this).load(userResponseResult.get(2).user_pic).into(profile_image3);
+                Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(2).user_pic).into(profile_image3);
             }
 
         } else if (roomMemberSize == 2) {
             profile_image3.setVisibility(View.GONE);
-            Log.d("tete123", "실행1");
-            if (userResponseResult.get(0).user_pic.equals("undefined")) {
+            if (roomAttendUsersItem.get(0).user_pic.equals("undefined")) {
                 Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image1);
             } else {
-                Glide.with(RoomDetailActivity.this).load(userResponseResult.get(0).user_pic).into(profile_image1);
+                Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(0).user_pic).into(profile_image1);
             }
-            if (userResponseResult.get(1).user_pic.equals("undefined")) {
-                Log.d("tete123", "실행2");
+            if (roomAttendUsersItem.get(1).user_pic.equals("undefined")) {
                 Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image2);
             } else {
-                Log.d("tete123", "실행3");
-                Glide.with(RoomDetailActivity.this).load(userResponseResult.get(1).user_pic).into(profile_image2);
+                Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(1).user_pic).into(profile_image2);
             }
 
         } else {
             profile_image2.setVisibility(View.GONE);
             profile_image3.setVisibility(View.GONE);
-            if (userResponseResult.get(0).user_pic.equals("undefined")) {
+            if (roomAttendUsersItem.get(0).user_pic.equals("undefined")) {
                 Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image1);
             } else {
-                Glide.with(RoomDetailActivity.this).load(userResponseResult.get(0).user_pic).into(profile_image1);
+                Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(0).user_pic).into(profile_image1);
             }
 
+        }
+    }
+
+    private void loadTasksData() {
+
+        Call<TaskListResponseResult> call = RetrofitServerClient.getInstance().getService().TaskListResponseResult(roomListResponseResult.tm_code);
+        call.enqueue(new Callback<TaskListResponseResult>() {
+            @Override
+            public void onResponse(Call<TaskListResponseResult> call, Response<TaskListResponseResult> response) {
+                if (response.isSuccessful()) {
+                    TaskListResponseResult taskListResponseResult = response.body();
+                    if (taskListResponseResult != null) {
+                        ArrayList<TaskInfoItem> taskInfoItems = taskListResponseResult.list;
+                        if (taskInfoItems != null) {
+                            taskListRVAdapter.setData(taskInfoItems);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TaskListResponseResult> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 4000 :
+                    loadTasksData();
+                    break;
+            }
         }
     }
 

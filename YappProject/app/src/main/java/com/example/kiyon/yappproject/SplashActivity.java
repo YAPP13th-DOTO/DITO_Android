@@ -2,16 +2,13 @@ package com.example.kiyon.yappproject;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
-import com.example.kiyon.yappproject.model.LoginResponseResult;
+import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;

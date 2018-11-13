@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginBottom="5dp"
     android:orientation="vertical">
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,20 +27,19 @@
             android:id="@+id/arrow_iv"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="14dp"
             android:layout_marginLeft="2dp"
             android:layout_toRightOf="@+id/subjectName_tv"
-            android:src="@drawable/icn_arrow_up"/>
+            android:src="@drawable/icn_arrow_down"/>
 
-        <ImageView
+        <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/check_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="9dp"
             android:layout_marginRight="18dp"
-            android:src="@drawable/check"/>
-
+            android:button="@drawable/uncheck_1"/>
         <ImageView
             android:id="@+id/time_iv"
             android:layout_width="24dp"

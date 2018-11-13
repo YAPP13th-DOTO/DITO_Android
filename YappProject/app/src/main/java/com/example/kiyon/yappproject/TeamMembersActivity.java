@@ -15,7 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.kiyon.yappproject.adapter.TeamMembersRVAdapter;
-import com.example.kiyon.yappproject.model.Room.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class TeamMembersActivity extends AppCompatActivity {
 
     private static final String TEAM_DATA = "TEAM_DATA";
 
-    public static Intent newIntent(Context context, ArrayList<UserResponseResult> lists) {
+    public static Intent newIntent(Context context, ArrayList<RoomAttendUsersItem> lists) {
         Intent intent = new Intent(context, TeamMembersActivity.class);
         intent.putExtra(TEAM_DATA, lists);
 
@@ -53,7 +53,7 @@ public class TeamMembersActivity extends AppCompatActivity {
 
         // 인텐트 정보 가져오기
         Intent intent = getIntent();
-        ArrayList<UserResponseResult> lists = (ArrayList<UserResponseResult>) intent.getSerializableExtra(TEAM_DATA);
+        ArrayList<RoomAttendUsersItem> lists = (ArrayList<RoomAttendUsersItem>) intent.getSerializableExtra(TEAM_DATA);
 
         // 유저정보 - > recyclerview adapter
         teamMembersRVAdapter.setData(lists);

@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.RoomDetailActivity;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
-import com.example.kiyon.yappproject.model.Room.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
@@ -83,7 +83,7 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         roomListVH.subjectName_tv.setText(roomListResponseResults.get(position).sub_name);
 
         // 방에 참여한 유저들 값
-        ArrayList<UserResponseResult> userLists = roomListResponseResults.get(position).users;
+        ArrayList<RoomAttendUsersItem> userLists = roomListResponseResults.get(position).users;
         setUserBindView(roomListVH, userLists);
 
         if (roomListResponseResults.get(position).iscreater != 1) {
@@ -98,7 +98,7 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    private void setUserBindView(RoomListVH roomListVH, ArrayList<UserResponseResult> lists) {
+    private void setUserBindView(RoomListVH roomListVH, ArrayList<RoomAttendUsersItem> lists) {
         if (lists.size() > EXTRA_PEOPLE) { // 참여 인워수가 3명 초과일 경우
 
             roomListVH.additionalUser_tv.setVisibility(View.VISIBLE);

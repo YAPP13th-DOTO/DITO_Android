@@ -5,6 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
@@ -122,23 +127,20 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#f2f2f2"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </android.support.v7.widget.RecyclerView>
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/subjectAdd_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:id="@+id/subjectAdd_btn"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/yellow"
-            android:textColor="#0f0f0f"
-            android:textSize="20sp"
-            android:fontFamily="@font/nanumbarungothicbold"
-            android:lineSpacingExtra="0sp"
-            android:text="과제추가"/>
-    </RelativeLayout>
+        android:layout_height="55dp"
+        android:background="@color/yellow"
+        android:textColor="#0f0f0f"
+        android:textSize="20sp"
+        android:fontFamily="@font/nanumbarungothicbold"
+        android:lineSpacingExtra="0sp"
+        android:layout_gravity="bottom"
+        android:text="과제추가"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -2,7 +2,7 @@ package com.example.kiyon.yappproject.model.Room;
 
 import java.io.Serializable;
 
-public class UserResponseResult implements Serializable {
+public class RoomAttendUsersItem implements Serializable {
 
     public String user_name;
     public String user_pic;

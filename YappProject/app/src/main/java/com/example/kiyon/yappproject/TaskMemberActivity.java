@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.kiyon.yappproject.adapter.AttendTeamMemberRVAdapter;
 import com.example.kiyon.yappproject.adapter.MemberListRVAdapter;
-import com.example.kiyon.yappproject.model.Room.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
@@ -22,10 +22,10 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
     private LinearLayout recyclerview_Layout;
     private RecyclerView recyclerView1,recyclerView2;
     private MemberListRVAdapter memberListRVAdapter;
-    private ArrayList<UserResponseResult> attendUserLists = new ArrayList<>();
-    private ArrayList<UserResponseResult> totalUserLists = new ArrayList<>();
+    private ArrayList<RoomAttendUsersItem> attendUserLists = new ArrayList<>();
+    private ArrayList<RoomAttendUsersItem> totalUserLists = new ArrayList<>();
 
-    public static Intent newIntent (Context context, ArrayList<UserResponseResult> list) {
+    public static Intent newIntent (Context context, ArrayList<RoomAttendUsersItem> list) {
         Intent intent = new Intent(context, TaskMemberActivity.class);
         intent.putExtra(USER_DATA,list);
         return intent;
@@ -44,7 +44,7 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
         recyclerView2.setAdapter(memberListRVAdapter);
 
         Intent intent = getIntent();
-        totalUserLists = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
+        totalUserLists = (ArrayList<RoomAttendUsersItem>) intent.getSerializableExtra(USER_DATA);
 
 
         memberListRVAdapter.setData(totalUserLists);
@@ -80,7 +80,7 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
     }
 
     @Override
-    public void onItemClick(int pos, boolean check, UserResponseResult person) {
+    public void onItemClick(int pos, boolean check, RoomAttendUsersItem person) {
 
         if(check) {
             attendUserLists.add(person);

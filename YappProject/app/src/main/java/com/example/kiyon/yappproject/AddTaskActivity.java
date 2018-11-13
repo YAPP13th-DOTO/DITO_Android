@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
-import com.example.kiyon.yappproject.model.BasicResponseResult;
-import com.example.kiyon.yappproject.model.Room.UserResponseResult;
+import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -47,14 +46,14 @@ public class AddTaskActivity extends AppCompatActivity {
     private Button memberBtn, dateBtn,createBtn;
     private MaterialCalendarView materialCalender;
     private InputMethodManager inputMethodManager;
-    private ArrayList<UserResponseResult> userResponseResults = new ArrayList<>();
+    private ArrayList<RoomAttendUsersItem> roomAttendUsersItems = new ArrayList<>();
     private String shot_Day = "";
-    private ArrayList<UserResponseResult> attendUserLists = new ArrayList<>();
+    private ArrayList<RoomAttendUsersItem> attendUserLists = new ArrayList<>();
     private ArrayList<String> attendUserIdLists = new ArrayList<>();
 
     private String taskDeadline;
 
-    public static Intent newIntent(Context context, ArrayList<UserResponseResult> list) {
+    public static Intent newIntent(Context context, ArrayList<RoomAttendUsersItem> list) {
         Intent intent = new Intent(context, AddTaskActivity.class);
         intent.putExtra(USER_DATA, list);
         return intent;
@@ -77,7 +76,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         //인텐트 정보
         Intent intent = getIntent();
-        userResponseResults = (ArrayList<UserResponseResult>) intent.getSerializableExtra(USER_DATA);
+        roomAttendUsersItems = (ArrayList<RoomAttendUsersItem>) intent.getSerializableExtra(USER_DATA);
 
         //달력 설정
         materialCalender = findViewById(R.id.materialCalender);
@@ -193,7 +192,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 dateBtn.setVisibility(View.INVISIBLE);
                 break;
             case R.id.taskMemberLayout: // 과제 멤버 추가하기
-                Intent intent = TaskMemberActivity.newIntent(AddTaskActivity.this,userResponseResults);
+                Intent intent = TaskMemberActivity.newIntent(AddTaskActivity.this, roomAttendUsersItems);
                 startActivityForResult(intent,3000);
                 break;
             case R.id.relativeLayout:
@@ -212,7 +211,7 @@ public class AddTaskActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 3000:
                     memberCount.setText(data.getStringExtra("result"));
-                    attendUserLists = (ArrayList<UserResponseResult>) data.getSerializableExtra("users");
+                    attendUserLists = (ArrayList<RoomAttendUsersItem>) data.getSerializableExtra("users");
                     attendUserIdLists.clear();
                     for (int i = 0; i < attendUserLists.size(); i++) {
                         attendUserIdLists.add(attendUserLists.get(i).kakao_id);

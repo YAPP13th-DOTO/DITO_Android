@@ -5,6 +5,6 @@ import java.util.ArrayList;
 
 public class TaskListResponseResult implements Serializable {
 
-    public ArrayList<TaskInfoItem> result;
+    public ArrayList<TaskInfoItem> list;
 
 }

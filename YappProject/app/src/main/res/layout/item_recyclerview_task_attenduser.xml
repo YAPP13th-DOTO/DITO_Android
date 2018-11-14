@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="18dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginBottom="14dp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_iv"
         android:layout_width="32dp"
@@ -27,6 +27,7 @@
         android:lineSpacingExtra="6sp"
         android:text="오리 인간"/>
     <TextView
+        android:id="@+id/late_status_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/userName_tv"
@@ -37,6 +38,7 @@
         android:lineSpacingExtra="8sp"
         android:text="지각" />
     <TextView
+        android:id="@+id/submit_status_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -123,13 +124,42 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f2f2f2"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f2f2f2"
+            android:visibility="visible">
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/temp_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#666666"
+            android:letterSpacing="-0.03"
+            android:fontFamily="@font/nanumbarungothic"
+            android:layout_marginTop="40dp"
+            android:lineSpacingExtra="8sp"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:text="아직 과제가 없습니다.\n새로운 과제를 추가해보세요!" />
+        <ImageView
+            android:id="@+id/temp_iv"
+            android:layout_width="99dp"
+            android:layout_height="139dp"
+            android:src="@drawable/img2"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/temp_tv"/>
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/subjectAdd_btn"

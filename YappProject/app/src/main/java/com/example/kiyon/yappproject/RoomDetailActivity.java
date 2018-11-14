@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -37,6 +38,8 @@ public class RoomDetailActivity extends AppCompatActivity {
 
     private static final String ROOM_DATA = "ROOM_DATA";
 
+
+    private RecyclerView recyclerView;
     private TaskListRVAdapter taskListRVAdapter;
 
     private RoomListResponseResult roomListResponseResult;
@@ -79,9 +82,9 @@ public class RoomDetailActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.icn_arrow_back);
 
         // recyclerview 셋팅
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        taskListRVAdapter = new TaskListRVAdapter(RoomDetailActivity.this);
+        taskListRVAdapter = new TaskListRVAdapter(RoomDetailActivity.this, (ViewGroup) findViewById(R.id.container));
         recyclerView.setAdapter(taskListRVAdapter);
 
         // 툴바 제목
@@ -132,6 +135,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         ImageView moreProfile = findViewById(R.id.moreProfile_iv);
         moreProfile.setOnClickListener(onClickListener);
         subject_add.setOnClickListener(onClickListener);
+
 
     }
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -211,6 +215,8 @@ public class RoomDetailActivity extends AppCompatActivity {
                     if (taskListResponseResult != null) {
                         ArrayList<TaskInfoItem> taskInfoItems = taskListResponseResult.list;
                         if (taskInfoItems != null) {
+                            findViewById(R.id.temp_iv).setVisibility(View.GONE);
+                            findViewById(R.id.temp_tv).setVisibility(View.GONE);
                             taskListRVAdapter.setData(taskInfoItems);
                         }
                     }

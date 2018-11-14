@@ -11,6 +11,8 @@ public class TaskInfoItem implements Serializable {
     public int as_num; // 과제 key 값
     public String as_dl; // 과제 마감기한
 
+    public String deadline; // 과제 마감 시간 (로컬 단에서 계산)
+
     public ArrayList<TaskAttendUsersItem> users;
 
 }

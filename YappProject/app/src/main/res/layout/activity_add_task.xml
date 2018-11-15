@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/taskSubEdit"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="35dp">
         <TextView
             android:id="@+id/taskMemberTxt"
             android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
             android:layout_centerVertical="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_marginRight="25dp"
-            android:padding="5dp"
+            android:padding="10dp"
             android:onClick="onClickCreateTask"
             android:gravity="center_vertical">
             <TextView
@@ -128,7 +128,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout1"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="25dp">
         <TextView
             android:id="@+id/taskDateTxt"
             android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
             android:layout_alignParentRight="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_marginRight="25dp"
-            android:padding="5dp"
+            android:padding="10dp"
             android:layout_marginTop="1dp"
             android:onClick="onClickCreateTask"
             android:gravity="center_vertical"

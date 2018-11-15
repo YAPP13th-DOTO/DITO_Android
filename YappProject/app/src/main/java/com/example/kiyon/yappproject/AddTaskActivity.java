@@ -78,13 +78,19 @@ public class AddTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         roomAttendUsersItems = (ArrayList<RoomAttendUsersItem>) intent.getSerializableExtra(USER_DATA);
 
+        // 오늘 날짜 가져오기
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
         //달력 설정
         materialCalender = findViewById(R.id.materialCalender);
 
         materialCalender.state().edit()
                 .setFirstDayOfWeek(Calendar.MONDAY)
-                .setMinimumDate(CalendarDay.from(1900, 1, 1))
-                .setMaximumDate(CalendarDay.from(2100, 12, 31))
+                .setMinimumDate(CalendarDay.from(currentYear, currentMonth, currentDay)) // 오늘기준 과거 날짜를 선택하기 못한 선택
+               .setMaximumDate(CalendarDay.from(2100, 12, 31))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
 

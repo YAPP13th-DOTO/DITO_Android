@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
+import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.example.kiyon.yappproject.model.Room.CreateRoomResponseResult;
 
 import retrofit2.Call;
@@ -94,8 +95,8 @@ public class RoomCreateActivity extends AppCompatActivity {
     }
 
     private void loadData(final String roomName, final String subjectName) {
-        SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", null);
+
+        String userID = UserInfoReturn.getInstance().getUserId(RoomCreateActivity.this);
 
         Call<CreateRoomResponseResult> call = RetrofitServerClient.getInstance().getService().CreateRoomResponseResult(userID, roomName, subjectName);
         call.enqueue(new Callback<CreateRoomResponseResult>() {

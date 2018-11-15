@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
+import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +35,9 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+//
+//        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+//        Log.d("test1414", "Refreshed token: " + refreshedToken);
 
 //        handler.postDelayed(runnable, 1500);
 
@@ -41,8 +47,7 @@ public class SplashActivity extends AppCompatActivity {
 
     public void loadData() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", null);
+        String userID = UserInfoReturn.getInstance().getUserId(SplashActivity.this);
 
         if (userID == null) { // 휴대폰에 로그인 기록이 없을 경우
             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);

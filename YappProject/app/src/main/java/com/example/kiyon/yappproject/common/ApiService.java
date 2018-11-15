@@ -9,6 +9,7 @@ import com.example.kiyon.yappproject.model.Task.TaskListResponseResult;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -62,6 +63,12 @@ public interface ApiService {
     @GET("get/team/assign")
     Call<TaskListResponseResult> TaskListResponseResult (
             @Query("tmcode") String tmcode
+    );
+
+    @FormUrlEncoded
+    @POST("token")
+    Call<ResponseBody> TokenResponseResult(
+            @Field("token") String token, @Field("id") String id
     );
 
 }

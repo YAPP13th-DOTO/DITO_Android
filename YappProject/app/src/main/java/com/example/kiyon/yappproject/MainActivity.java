@@ -26,14 +26,19 @@ import com.example.kiyon.yappproject.adapter.RoomListRVAdapter;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
+import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.kakao.usermgmt.response.model.User;
 
 import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         // 방 리스트 가져오기
         loadRoomData();
-
+        // 토큰값 서버로 전송
+        sendFCMTokenToServer();
     }
 
 
@@ -137,8 +143,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         dialog.findViewById(R.id.ok_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-                String userID = sharedPreferences.getString("userID", null);
+                String userID = UserInfoReturn.getInstance().getUserId(MainActivity.this);
+
                 String roomCode = roomCode_edit.getText().toString();
 
                 attendRoom(userID, roomCode);
@@ -178,11 +184,35 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         });
     }
 
+    // 로그인유저 토큰값 서버로 전송
+    private void sendFCMTokenToServer() {
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        String userID = UserInfoReturn.getInstance().getUserId(MainActivity.this);
+
+        if (userID != null && token != null) {
+            Call<ResponseBody> call = RetrofitServerClient.getInstance().getService().TokenResponseResult(token, userID);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("test1515", response.message());
+                    Log.d("test1515", String.valueOf(response.code()));
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+        }
+
+    }
+
     // 팀방 목록 가져오기
     private void loadRoomData() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-        String userID = sharedPreferences.getString("userID", null);
+        String userID = UserInfoReturn.getInstance().getUserId(MainActivity.this);
         Log.e("TAG","user = " + userID);
 
         Call<ArrayList<RoomListResponseResult>> call = RetrofitServerClient.getInstance().getService().RoomListResponseResult(userID);

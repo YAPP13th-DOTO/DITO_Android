@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "593318301930",
+    "firebase_url": "https://fcm-yappproject-dito.firebaseio.com",
+    "project_id": "fcm-yappproject-dito",
+    "storage_bucket": "fcm-yappproject-dito.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593318301930:android:680c78df3ef39509",
+        "android_client_info": {
+          "package_name": "com.example.kiyon.yappproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593318301930-qqt9q16q2dfairpmsudohnfhof3b4e37.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL5a2OxZCZJj-HhvNjRg4Gcc4gQ0vBlow"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

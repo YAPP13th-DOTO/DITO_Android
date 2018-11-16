@@ -60,6 +60,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private class TaskListVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         private RelativeLayout taskItem_layout;
         private TextView task_title;
+        private TextView task_content;
         private ImageView arrow_iv;
         private AppCompatCheckBox taskSubmit;
         private TextView taskDeadLine;
@@ -69,6 +70,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
             taskItem_layout = itemView.findViewById(R.id.taskItem_layout);
             task_title = itemView.findViewById(R.id.subjectName_tv);
+            task_content = itemView.findViewById(R.id.subjectContent_tv);
             arrow_iv = itemView.findViewById(R.id.arrow_iv);
             taskSubmit = itemView.findViewById(R.id.check_iv);
             taskDeadLine = itemView.findViewById(R.id.time_tv);
@@ -120,6 +122,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TaskListVH taskListVH = (TaskListVH) holder;
 
         taskListVH.task_title.setText(taskInfoItems.get(position).as_name);
+        taskListVH.task_content.setText(taskInfoItems.get(position).as_content);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

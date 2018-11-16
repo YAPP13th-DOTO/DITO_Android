@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Session session = Session.getCurrentSession();
                 session.addCallback(new SessionCallback());
+                session.checkAndImplicitOpen();
                 session.open(AuthType.KAKAO_ACCOUNT , LoginActivity.this);
             }
         });
@@ -98,8 +99,9 @@ public class LoginActivity extends AppCompatActivity {
         // 로그인에 실패한 상태
         @Override
         public void onSessionOpenFailed(KakaoException exception) {
-
-            Log.e("SessionCallback :: ", "onSessionOpenFailed : " + exception.getMessage());
+            if (exception != null) {
+                Log.e("SessionCallback :: ", "onSessionOpenFailed : " + exception.getMessage());
+            }
 
         }
 
@@ -184,6 +186,16 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     public void loadData(final String uid, final String nickname, final String profileImagePath) {
         if (uid != null) {
             Call<LoginResponseResult> call = RetrofitServerClient.getInstance().getService().LoginResponseResult(uid, nickname, profileImagePath);

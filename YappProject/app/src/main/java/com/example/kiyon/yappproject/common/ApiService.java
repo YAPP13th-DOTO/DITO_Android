@@ -60,15 +60,23 @@ public interface ApiService {
             @Field("users") ArrayList<String> users
     );
 
+    // 방안에 있는 과제리스트 조회
     @GET("get/team/assign")
     Call<TaskListResponseResult> TaskListResponseResult (
             @Query("tmcode") String tmcode
     );
 
+    // 서버에 토큰 저장
     @FormUrlEncoded
     @POST("token")
-    Call<ResponseBody> TokenResponseResult(
+    Call<ResponseBody> TokenResponseResult (
             @Field("token") String token, @Field("id") String id
+    );
+
+    // 유저 과제 승인요청
+    @GET("push/req")
+    Call<ResponseBody> RequestApprovalResponseResult (
+            @Query("id") String id, @Query("name") String name
     );
 
 }

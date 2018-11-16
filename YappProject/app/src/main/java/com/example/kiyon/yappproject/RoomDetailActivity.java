@@ -38,7 +38,7 @@ public class RoomDetailActivity extends AppCompatActivity {
 
     private static final String ROOM_DATA = "ROOM_DATA";
 
-
+    private String roomCaptain_id;
     private RecyclerView recyclerView;
     private TaskListRVAdapter taskListRVAdapter;
 
@@ -73,7 +73,11 @@ public class RoomDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         roomListResponseResult = (RoomListResponseResult) intent.getSerializableExtra(ROOM_DATA); // 방 정보
         roomAttendUsersItem = roomListResponseResult.users; // 방에 참여한 유저 정보
-
+        for (int i = 0 ; i < roomAttendUsersItem.size(); i++) {
+            if (roomAttendUsersItem.get(i).iscreater == 1) {
+                roomCaptain_id = roomAttendUsersItem.get(i).kakao_id;
+            }
+        }
         // 툴바 셋팅
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -84,7 +88,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         // recyclerview 셋팅
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        taskListRVAdapter = new TaskListRVAdapter(RoomDetailActivity.this, (ViewGroup) findViewById(R.id.container));
+        taskListRVAdapter = new TaskListRVAdapter(RoomDetailActivity.this, (ViewGroup) findViewById(R.id.container), roomCaptain_id);
         recyclerView.setAdapter(taskListRVAdapter);
 
         // 툴바 제목

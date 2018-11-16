@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.kiyon.yappproject.R;
@@ -46,6 +48,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private class TaskListVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private RelativeLayout taskItem_layout;
         private TextView task_title;
         private ImageView arrow_iv;
         private AppCompatCheckBox taskSubmit;
@@ -54,11 +57,14 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public TaskListVH(View itemView) {
             super(itemView);
+            taskItem_layout = itemView.findViewById(R.id.taskItem_layout);
             task_title = itemView.findViewById(R.id.subjectName_tv);
             arrow_iv = itemView.findViewById(R.id.arrow_iv);
             taskSubmit = itemView.findViewById(R.id.check_iv);
             taskDeadLine = itemView.findViewById(R.id.time_tv);
             recyclerView = itemView.findViewById(R.id.recyclerview);
+
+            taskItem_layout.setOnClickListener(this);
             arrow_iv.setOnClickListener(this);
             taskSubmit.setOnClickListener(this);
         }
@@ -66,6 +72,10 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
+                case R.id.taskItem_layout :
+                    TransitionManager.beginDelayedTransition(mRootView, new ChangeBounds());
+                    changeViewState();
+                    break;
                 case R.id.check_iv :
                     if (taskSubmit.isChecked()) {
                         taskSubmit.setButtonDrawable(R.drawable.check_1);
@@ -73,17 +83,19 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         taskSubmit.setButtonDrawable(R.drawable.uncheck_1);
                     }
                     break;
-                case R.id.arrow_iv : // 과제 참여인원 보기
-                    TransitionManager.beginDelayedTransition(mRootView, new ChangeBounds());
-                    changeViewState();
-                    break;
+//                case R.id.arrow_iv : // 과제 참여인원 보기
+//                    TransitionManager.beginDelayedTransition(mRootView, new ChangeBounds());
+//                    changeViewState();
+//                    break;
             }
         }
 
         private void changeViewState() {
             if (View.GONE == recyclerView.getVisibility()) {
+                arrow_iv.setImageResource(R.drawable.icn_arrow_up);
                 recyclerView.setVisibility(View.VISIBLE);
             } else {
+                arrow_iv.setImageResource(R.drawable.icn_arrow_down);
                 recyclerView.setVisibility(View.GONE);
             }
         }

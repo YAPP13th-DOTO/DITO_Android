@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 import static com.kakao.util.helper.Utility.getPackageInfo;
 
-
+// commit test
 public class LoginActivity extends AppCompatActivity {
 
     private SessionCallback callback;

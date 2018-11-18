@@ -7,49 +7,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
-import com.example.kiyon.yappproject.model.Task.TaskCompleteItem;
+import com.example.kiyon.yappproject.common.UserInfoReturn;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
+import com.example.kiyon.yappproject.model.Task.TaskInfoItem;
 
 import java.util.ArrayList;
 
 public class ProjectCompleteRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Context context;
-    ArrayList<TaskCompleteItem> taskCompleteItems;
+    Context context;
+    ArrayList<RoomAttendUsersItem> list;
+    String tm_code;
 
-    public ProjectCompleteRVAdapter(Context context, ArrayList<TaskCompleteItem> list) {
+    public ProjectCompleteRVAdapter(Context context, ArrayList<RoomAttendUsersItem> list ,String tm_code) {
         this.context = context;
-        this.taskCompleteItems = list;
+        this.list = list;
+        this.tm_code = tm_code;
     }
 
-
-    public class ProjectCompleteRV extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ProjectCompleteRV extends RecyclerView.ViewHolder {
+        private RelativeLayout relativeLayout2;     //통계차트있는 뷰
+        private CheckBox moreInfo;
+        private TextView user_name;
+        private RecyclerView onTime,late,uncomplete;    //정시제출,지각,미제출 시 과제이름
         private ImageView profile_img;
-        private TextView memberTaskSincerity;
-        private TextView percent_txt;
-        private CheckBox moreTask;
 
         public ProjectCompleteRV(View itemView) {
             super(itemView);
-            profile_img = itemView.findViewById(R.id.profile_image);
-            memberTaskSincerity = itemView.findViewById(R.id.memberTaskSincerity);
-            percent_txt = itemView.findViewById(R.id.percent_txt);
-            moreTask = itemView.findViewById(R.id.moreTask);
-        }
 
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.relativeLayout:
-                    break;
-            }
+            relativeLayout2 = itemView.findViewById(R.id.relativeLayout2);
+            moreInfo = itemView.findViewById(R.id.moreInfo);
+            user_name = itemView.findViewById(R.id.userName);
+            onTime = itemView.findViewById(R.id.onTimeRecyclerview);
+            late = itemView.findViewById(R.id.lateRecyclerview);
+            uncomplete = itemView.findViewById(R.id.uncompleteRecyclerview);
+            profile_img = itemView.findViewById(R.id.profile_image);
         }
     }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,32 +60,40 @@ public class ProjectCompleteRVAdapter extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final ProjectCompleteRV projectCompleteRV = (ProjectCompleteRV) holder;
 
-        //유저이미지
-        if(taskCompleteItems.get(position).user_pic.equals("undefined")) {
+        //프로필사진 유무
+        if(list.get(position).user_pic.equals("undefined")) {
             Glide.with(context).load(R.drawable.test_user).into(projectCompleteRV.profile_img);
-        } else {
-            Glide.with(context).load(R.drawable.test_user).into(projectCompleteRV.profile_img);
+        }else {
+            Glide.with(context).load(list.get(position).user_pic).into(projectCompleteRV.profile_img);
         }
-        //과제성실도 text
-        projectCompleteRV.memberTaskSincerity.setText(taskCompleteItems.get(position).task_member + "님의 과제성실도");
-        //퍼센트 text
-        projectCompleteRV.percent_txt.setText(taskCompleteItems.get(position).task_percent + "%");
 
-        //체크박스로 더보기 버튼 클릭이벤트
-        projectCompleteRV.moreTask.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(projectCompleteRV.moreTask.isChecked()) {
-                    projectCompleteRV.moreTask.setButtonDrawable(R.drawable.icon_arrow_down);
-                } else {
-                    projectCompleteRV.moreTask.setButtonDrawable(R.drawable.icn_arrow_up);
-                }
-            }
-        });
+        //클릭유무
+        if(projectCompleteRV.moreInfo.isChecked()) {
+            Glide.with(context).load(R.drawable.icn_arrow_up);
+        } else {
+            Glide.with(context).load(R.drawable.icon_arrow_down);
+        }
+
+        projectCompleteRV.user_name.setText(list.get(position).user_name + "님의 과제 성실도");
+
+        /*
+        ***통계차트 그리기
+        PieChartView pieChartView = findViewById(R.id.chart);
+
+        List<SliceValue> pieData = new ArrayList<>();
+
+        pieData.add(new SliceValue(30, Color.parseColor("#c3c3c3")));   //정시완료
+        pieData.add(new SliceValue(10, Color.parseColor("#999999")));   //지각
+        pieData.add(new SliceValue(10, Color.parseColor("#666666")));   //미완료
+
+        PieChartData pieChartData = new PieChartData(pieData);
+        pieChartData.setHasCenterCircle(true);
+        pieChartView.setPieChartData(pieChartData);
+         */
     }
 
     @Override
     public int getItemCount() {
-        return taskCompleteItems.size();
+        return list.size();
     }
 }

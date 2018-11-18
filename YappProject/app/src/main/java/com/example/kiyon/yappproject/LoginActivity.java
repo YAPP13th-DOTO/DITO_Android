@@ -78,9 +78,10 @@ public class LoginActivity extends AppCompatActivity {
                 session.open(AuthType.KAKAO_ACCOUNT , LoginActivity.this);
             }
         });
+       // getHashKey();
     }
 
-    //    private void getHashKey() {
+//        private void getHashKey() {
 //        try {
 //            PackageInfo info = getPackageInfo(LoginActivity.this, PackageManager.GET_SIGNATURES);
 //            for (Signature signature : info.signatures) {
@@ -96,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public class SessionCallback implements ISessionCallback {
-
 
         // 로그인에 성공한 상태
 

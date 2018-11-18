@@ -90,7 +90,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 case R.id.check_iv :
                     // 한번 체크하면 버튼을 비활성화 시키기 때문에 else문은 따로 필요없음.
                     if (taskSubmit.isChecked()) {
-//                        sendRequestApprovalToServer();
+                        sendRequestApprovalToServer(getAdapterPosition());
                         taskSubmit.setButtonDrawable(R.drawable.check_1);
                         taskSubmit.setEnabled(false);
                     }
@@ -157,6 +157,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         }
+
         if (isAttendChecked) { // 과제에 본인이 참여했으면 제출버튼 보여줌
             taskListVH.taskSubmit.setVisibility(View.VISIBLE);
         } else { // 없으면 제출버튼 삭제
@@ -165,7 +166,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-        taskAttendUsersRVAdapter.setData(taskInfoItems.get(position).users);
+        taskAttendUsersRVAdapter.setData(taskInfoItems.get(position).users, roomCaptain_id);
     }
 
     @Override
@@ -173,27 +174,28 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return taskInfoItems.size();
     }
 
-//    과제 key 값을 보내야 해당 승인요청 작업이 가능한데 서버 실수로 작업 미뤄짐.
-//    private void sendRequestApprovalToServer() {
-//
-//        // 승인 요청을 보내기 위해서 방장 id 값, 승인요청을 보내는 유저 이름이 필요하다.
-//        Call<ResponseBody> call = RetrofitServerClient.getInstance().getService().RequestApprovalResponseResult(roomCaptain_id, UserInfoReturn.getInstance().getUserName(mContext));
-//        Log.d("test1616", String.valueOf(call.request().url()));
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if (response.isSuccessful()) {
-//                    Log.d("test1616" , String.valueOf(response.body()));
-//                    Log.d("test1616" , String.valueOf(response.message()));
-//                    Log.d("test1616" , String.valueOf(response.code()));
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
+    private void sendRequestApprovalToServer(int position) {
+
+        // 승인 요청을 보내기 위해서 방장 id 값, 승인요청을 보내는 유저 이름이 필요하다.
+        Call<ResponseBody> call = RetrofitServerClient.getInstance().getService().RequestApprovalResponseResult(roomCaptain_id, UserInfoReturn.getInstance().getUserName(mContext),
+                UserInfoReturn.getInstance().getUserId(mContext), taskInfoItems.get(position).as_num);
+
+        Log.d("test1616", String.valueOf(call.request().url()));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Log.d("test1616" , String.valueOf(response.body()));
+                    Log.d("test1616" , String.valueOf(response.message()));
+                    Log.d("test1616" , String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+    }
 }

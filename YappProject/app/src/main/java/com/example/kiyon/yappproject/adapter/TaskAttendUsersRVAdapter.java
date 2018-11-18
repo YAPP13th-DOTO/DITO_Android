@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
+import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.example.kiyon.yappproject.model.Task.TaskAttendUsersItem;
 
 import java.util.ArrayList;
@@ -18,16 +19,18 @@ import java.util.ArrayList;
 public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    public ArrayList<TaskAttendUsersItem> taskAttendUsersItems;
+    private ArrayList<TaskAttendUsersItem> taskAttendUsersItems;
+    private String roomCaptain_id;
 
     public TaskAttendUsersRVAdapter(Context context) {
         mContext = context;
         taskAttendUsersItems = new ArrayList<>();
     }
 
-    public void setData(ArrayList<TaskAttendUsersItem> lists) {
+    public void setData(ArrayList<TaskAttendUsersItem> lists, String captain_id) {
         taskAttendUsersItems.clear();
         taskAttendUsersItems.addAll(lists);
+        roomCaptain_id = captain_id;
         notifyDataSetChanged();
     }
 
@@ -92,15 +95,27 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
 //        - req : 0 accept : 0일경우
 //        유저화면 : 미제출
 //        방장화면 : 미제출
+
         if (taskAttendUsersItems.get(position).req == 0 && taskAttendUsersItems.get(position).accept == 0) {
             taskAttendUsersVH.submitStatus.setText("미제출");
         } else if (taskAttendUsersItems.get(position).req == 1 && taskAttendUsersItems.get(position).accept == 0) {
             // 방장과 유저의 입장차이를 만들어야됨..
+            if (UserInfoReturn.getInstance().getUserId(mContext).equals(roomCaptain_id)) { // 앱 사용자가 방을 만든 방장일 경우
+                taskAttendUsersVH.submitStatus.setText("O X");
+            } else { // 앱 사용자가 일반 유저일 경우
+                taskAttendUsersVH.submitStatus.setText("승인대기중");
+            }
         } else if (taskAttendUsersItems.get(position).req == 1 && taskAttendUsersItems.get(position).accept == 1) {
             taskAttendUsersVH.submitStatus.setText("제출완료");
         } else {
 
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return super.getItemViewType(position);
     }
 
     @Override

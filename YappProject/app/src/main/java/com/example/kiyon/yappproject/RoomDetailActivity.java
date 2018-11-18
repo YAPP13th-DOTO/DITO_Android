@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class RoomDetailActivity extends AppCompatActivity {
 
     private static final String ROOM_DATA = "ROOM_DATA";
 
-    private String roomCaptain_id;
+    private String roomCaptain_id; // 해당 Room 방장의 id 값
     private RecyclerView recyclerView;
     private TaskListRVAdapter taskListRVAdapter;
 
@@ -73,11 +74,13 @@ public class RoomDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         roomListResponseResult = (RoomListResponseResult) intent.getSerializableExtra(ROOM_DATA); // 방 정보
         roomAttendUsersItem = roomListResponseResult.users; // 방에 참여한 유저 정보
-        for (int i = 0 ; i < roomAttendUsersItem.size(); i++) {
+
+        for (int i = 0 ; i < roomAttendUsersItem.size(); i++) { // 해당 room 방장의 id값을 알아내기 위한 코드
             if (roomAttendUsersItem.get(i).iscreater == 1) {
                 roomCaptain_id = roomAttendUsersItem.get(i).kakao_id;
             }
         }
+
         // 툴바 셋팅
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -218,10 +221,11 @@ public class RoomDetailActivity extends AppCompatActivity {
                     TaskListResponseResult taskListResponseResult = response.body();
                     if (taskListResponseResult != null) {
                         ArrayList<TaskInfoItem> taskInfoItems = taskListResponseResult.list;
-                        if (taskInfoItems != null) {
-                            findViewById(R.id.temp_iv).setVisibility(View.GONE);
-                            findViewById(R.id.temp_tv).setVisibility(View.GONE);
+                        if (taskInfoItems.size() != 0) { // 과제 목록이 없을 경우
                             taskListRVAdapter.setData(taskInfoItems);
+                        } else {
+                            findViewById(R.id.temp_iv).setVisibility(View.VISIBLE);
+                            findViewById(R.id.temp_tv).setVisibility(View.VISIBLE);
                         }
                     }
                 }

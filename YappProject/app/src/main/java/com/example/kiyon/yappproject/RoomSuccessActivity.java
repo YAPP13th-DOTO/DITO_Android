@@ -105,13 +105,7 @@ public class RoomSuccessActivity extends AppCompatActivity {
                 ClipData clipData = ClipData.newPlainText("방코드",roomCode);
                 Log.d("roomValue", "클립보드:"+ roomCode);
                 clipboardManager.setPrimaryClip(clipData);
-                //방코드 저장
-                //SharedPreferences sharedPreferences = getSharedPreferences("DITO", MODE_PRIVATE);
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("tmcode",roomCode);
-                editor.commit();
-                ////
+
                 setDialogView();
             }
         });

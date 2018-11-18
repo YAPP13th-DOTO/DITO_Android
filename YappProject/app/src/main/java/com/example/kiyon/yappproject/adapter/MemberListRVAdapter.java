@@ -3,7 +3,6 @@ package com.example.kiyon.yappproject.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +13,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
-import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
 public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private ArrayList<UserResponseResult> userResponseResults;
+    private ArrayList<RoomAttendUsersItem> roomAttendUsersItems;
     private Context context;
     private MemberListRVAdapter.ItemClickListener itemClickListener;
 
     public MemberListRVAdapter(Context context) {
         this.context = context;
-        userResponseResults = new ArrayList<>();
+        roomAttendUsersItems = new ArrayList<>();
     }
-    public void setData(ArrayList<UserResponseResult> lists) {
-        userResponseResults.clear();
-        userResponseResults.addAll(lists);
+    public void setData(ArrayList<RoomAttendUsersItem> lists) {
+        roomAttendUsersItems.clear();
+        roomAttendUsersItems.addAll(lists);
         notifyDataSetChanged();
     }
     public class MemberListVH extends RecyclerView.ViewHolder {
@@ -56,23 +55,23 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final MemberListVH memberListVH = (MemberListVH) holder;
 
-        if(userResponseResults.get(position).user_pic.equals("undefined")) {
+        if(roomAttendUsersItems.get(position).user_pic.equals("undefined")) {
             Glide.with(context).load(R.drawable.test_user).into(memberListVH.profileImage);
         }else {
-            Glide.with(context).load(userResponseResults.get(position).user_pic).into(memberListVH.profileImage);
+            Glide.with(context).load(roomAttendUsersItems.get(position).user_pic).into(memberListVH.profileImage);
         }
 
-        memberListVH.userName.setText(userResponseResults.get(position).user_name);
+        memberListVH.userName.setText(roomAttendUsersItems.get(position).user_name);
         
         memberListVH.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(memberListVH.checkBox.isChecked() == true) {
-                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
+                if(memberListVH.checkBox.isChecked()) {
+                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b, roomAttendUsersItems.get(position));
                     memberListVH.checkBox.setButtonDrawable(R.drawable.check);
                 } else {
-                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b,userResponseResults.get(position));
+                    if(itemClickListener!=null) itemClickListener.onItemClick(position,b, roomAttendUsersItems.get(position));
                     memberListVH.checkBox.setButtonDrawable(R.drawable.un_check);
                 }
             }
@@ -81,7 +80,7 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return userResponseResults.size();
+        return roomAttendUsersItems.size();
     }
 
     public void setClickListener(MemberListRVAdapter.ItemClickListener itemClickListener) {
@@ -89,6 +88,6 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public interface ItemClickListener {
-        void onItemClick(int pos, boolean check, UserResponseResult person);
+        void onItemClick(int pos, boolean check, RoomAttendUsersItem person);
     }
 }

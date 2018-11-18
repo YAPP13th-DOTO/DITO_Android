@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject.model;
+package com.example.kiyon.yappproject.model.Room;
 
 public class CreateRoomResponseResult {
     public String code;

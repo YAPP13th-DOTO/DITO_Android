@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject.model;
+package com.example.kiyon.yappproject.model.Etc;
 
 import java.util.ArrayList;
 

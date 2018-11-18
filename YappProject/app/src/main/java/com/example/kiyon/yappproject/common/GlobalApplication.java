@@ -17,8 +17,6 @@ public class GlobalApplication extends Application{
 
         }
 
-
-
         return instance;
 
     }

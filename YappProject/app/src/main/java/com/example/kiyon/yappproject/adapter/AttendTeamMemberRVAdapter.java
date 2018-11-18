@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
-import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
 public class AttendTeamMemberRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private ArrayList<UserResponseResult> userResponseResults;
+    private ArrayList<RoomAttendUsersItem> roomAttendUsersItems;
 
-    public AttendTeamMemberRVAdapter(ArrayList<UserResponseResult> lists,Context context) {
+    public AttendTeamMemberRVAdapter(ArrayList<RoomAttendUsersItem> lists, Context context) {
         this.context = context;
-        this.userResponseResults = lists;
+        this.roomAttendUsersItems = lists;
     }
 
     public class AttendTeamMemberRV extends RecyclerView.ViewHolder {
@@ -46,16 +46,16 @@ public class AttendTeamMemberRVAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final AttendTeamMemberRV attendTeamMemberRV = (AttendTeamMemberRV) holder;
 
-        if(userResponseResults.get(position).user_pic.equals("undefined")) {
+        if(roomAttendUsersItems.get(position).user_pic.equals("undefined")) {
             Glide.with(context).load(R.drawable.test_user).into(attendTeamMemberRV.profile_img);
         }else {
-            Glide.with(context).load(userResponseResults.get(position).user_pic).into(attendTeamMemberRV.profile_img);
+            Glide.with(context).load(roomAttendUsersItems.get(position).user_pic).into(attendTeamMemberRV.profile_img);
         }
-        attendTeamMemberRV.user_name.setText(userResponseResults.get(position).user_name);
+        attendTeamMemberRV.user_name.setText(roomAttendUsersItems.get(position).user_name);
     }
 
     @Override
     public int getItemCount() {
-        return userResponseResults.size();
+        return roomAttendUsersItems.size();
     }
 }

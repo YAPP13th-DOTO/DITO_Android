@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp">
     <RelativeLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/room_layout"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="328dp"
+        android:layout_width="match_parent"
         android:layout_height="92dp"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:layout_centerHorizontal="true"
         android:background="@drawable/box_list"
         android:layout_marginBottom="12dp">

@@ -11,22 +11,21 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
-import com.example.kiyon.yappproject.model.RoomList.RoomListResponseResult;
-import com.example.kiyon.yappproject.model.RoomList.UserResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
 public class TeamMembersRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<UserResponseResult> mLists;
+    private ArrayList<RoomAttendUsersItem> mLists;
 
     public TeamMembersRVAdapter(Context context) {
         mContext = context;
         mLists = new ArrayList<>();
     }
 
-    public void setData(ArrayList<UserResponseResult> lists) {
+    public void setData(ArrayList<RoomAttendUsersItem> lists) {
         mLists.clear();
         mLists.addAll(lists);
         notifyDataSetChanged();

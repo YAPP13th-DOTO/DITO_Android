@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject.model.RoomList;
+package com.example.kiyon.yappproject.model.Room;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +12,6 @@ public class RoomListResponseResult implements Serializable {
     public int isdone; // 방이 종료 됬는지 판별
     public String date; // 생성 날짜
 
-    public ArrayList<UserResponseResult> users;
+    public ArrayList<RoomAttendUsersItem> users;
 
 }

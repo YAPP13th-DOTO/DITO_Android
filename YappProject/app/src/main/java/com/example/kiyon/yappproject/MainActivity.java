@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         roomMakeBtn.setOnClickListener(onClickListener);
         roomGoBtn.setOnClickListener(onClickListener);
 
+        ///////test/////////
+        ImageView testBtn = findViewById(R.id.testBtn);
+        testBtn.setOnClickListener(onClickListener);
+        ///////////////////
+
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         roomListRVAdapter = new RoomListRVAdapter(this);
@@ -111,6 +117,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     setDialogView();
                     addBtn.collapse();
                     break;
+                case R.id.testBtn:
+                    Intent intent1 = ProjectCompleteActivity.newIntent(MainActivity.this);
+                    startActivity(intent1);
+                    addBtn.collapse();
             }
         }
     };

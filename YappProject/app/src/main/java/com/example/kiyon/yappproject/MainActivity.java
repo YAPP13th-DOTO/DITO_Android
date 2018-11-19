@@ -196,8 +196,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("test1515", response.message());
-                    Log.d("test1515", String.valueOf(response.code()));
+
                 }
 
                 @Override

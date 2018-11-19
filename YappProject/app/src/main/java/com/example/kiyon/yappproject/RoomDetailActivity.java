@@ -1,10 +1,14 @@
 package com.example.kiyon.yappproject;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.location.LocationManager;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +27,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.adapter.TaskListRVAdapter;
+import com.example.kiyon.yappproject.common.OnDataChange;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
@@ -70,6 +75,7 @@ public class RoomDetailActivity extends AppCompatActivity {
     }
 
     private void Initialize() {
+
         // 인텐트 가져오기
         Intent intent = getIntent();
         roomListResponseResult = (RoomListResponseResult) intent.getSerializableExtra(ROOM_DATA); // 방 정보
@@ -92,6 +98,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         taskListRVAdapter = new TaskListRVAdapter(RoomDetailActivity.this, (ViewGroup) findViewById(R.id.container), roomCaptain_id);
+        taskListRVAdapter.setOnClick(onItemClick);
         recyclerView.setAdapter(taskListRVAdapter);
 
         // 툴바 제목
@@ -139,12 +146,37 @@ public class RoomDetailActivity extends AppCompatActivity {
             subject_add.setVisibility(View.GONE);
         }
 
+        // click listener
         ImageView moreProfile = findViewById(R.id.moreProfile_iv);
         moreProfile.setOnClickListener(onClickListener);
         subject_add.setOnClickListener(onClickListener);
 
+        // firebase 푸쉬메시지에서 오는 broadcast 등록
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("DataChange"));
 
     }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("test1414" , "실행");
+            loadTasksData();
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+    }
+
+    private OnDataChange onItemClick = new OnDataChange() {
+        @Override
+        public void onChange() {
+            loadTasksData();
+        }
+    };
+
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -237,6 +269,7 @@ public class RoomDetailActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -7,11 +7,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.example.kiyon.yappproject.MainActivity;
@@ -23,10 +25,15 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class FireBaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
-
+    private LocalBroadcastManager broadcaster;
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        broadcaster = LocalBroadcastManager.getInstance(this);
+    }
 
+    @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
@@ -42,6 +49,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
                 String title = remoteMessage.getData().get("title");
                 String body = remoteMessage.getData().get("content");
                 sendNotificationFromServer(title, body);
+                broadcaster.sendBroadcast(new Intent("DataChange"));
             } else {
                 handleNow();
             }
@@ -132,7 +140,5 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0, notificationBuilder.build());
 
     }
-
-
 
 }

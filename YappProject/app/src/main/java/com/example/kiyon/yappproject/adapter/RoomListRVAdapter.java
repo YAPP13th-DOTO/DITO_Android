@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,19 +152,19 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             roomListProgressVH.additionalUser_tv.setText("+" + String.valueOf(lists.size() - EXTRA_PEOPLE));
 
             if (lists.get(0).user_pic.equals("undefined")) {
-                Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image1);
+                Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image1);
             } else {
                 Glide.with(mContext).load(lists.get(0).user_pic).into(roomListProgressVH.profile_image1);
             }
 
             if (lists.get(1).user_pic.equals("undefined")) {
-                Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image2);
+                Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image2);
             } else {
                 Glide.with(mContext).load(lists.get(1).user_pic).into(roomListProgressVH.profile_image2);
             }
 
             if (lists.get(2).user_pic.equals("undefined")) {
-                Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image3);
+                Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image3);
             } else {
                 Glide.with(mContext).load(lists.get(2).user_pic).into(roomListProgressVH.profile_image3);
             }
@@ -176,19 +177,19 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 roomListProgressVH.profile_image3.setVisibility(View.VISIBLE);
 
                 if (lists.get(0).user_pic.equals("undefined")) {
-                    Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image1);
+                    Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image1);
                 } else {
                     Glide.with(mContext).load(lists.get(0).user_pic).into(roomListProgressVH.profile_image1);
                 }
 
                 if (lists.get(1).user_pic.equals("undefined")) {
-                    Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image2);
+                    Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image2);
                 } else {
                     Glide.with(mContext).load(lists.get(1).user_pic).into(roomListProgressVH.profile_image2);
                 }
 
                 if (lists.get(2).user_pic.equals("undefined")) {
-                    Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image3);
+                    Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image3);
                 } else {
                     Glide.with(mContext).load(lists.get(2).user_pic).into(roomListProgressVH.profile_image3);
                 }
@@ -199,13 +200,15 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 roomListProgressVH.profile_image3.setVisibility(View.VISIBLE);
 
                 if (lists.get(0).user_pic.equals("undefined")) {
-                    Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image2);
+                    Log.d("test1514", "실행1");
+                    Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image2);
                 } else {
                     Glide.with(mContext).load(lists.get(0).user_pic).into(roomListProgressVH.profile_image2);
                 }
 
                 if (lists.get(1).user_pic.equals("undefined")) {
-                    Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image3);
+                    Log.d("test1514", "실행2");
+                    Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image3);
                 } else {
                     Glide.with(mContext).load(lists.get(1).user_pic).into(roomListProgressVH.profile_image3);
                 }
@@ -217,7 +220,7 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 roomListProgressVH.profile_image3.setVisibility(View.VISIBLE);
 
                 if (lists.get(0).user_pic.equals("undefined")) {
-                    Glide.with(mContext).load(R.drawable.test_user).into(roomListProgressVH.profile_image3);
+                    Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image3);
                 } else {
                     Glide.with(mContext).load(lists.get(0).user_pic).into(roomListProgressVH.profile_image3);
                 }

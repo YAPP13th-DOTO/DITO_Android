@@ -268,17 +268,17 @@ public class RoomDetailActivity extends AppCompatActivity {
 
         if (roomMemberSize >= 3) {
             if (roomAttendUsersItem.get(0).user_pic.equals("undefined")) {
-                Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image1);
+                Glide.with(RoomDetailActivity.this).load(R.drawable.temp_user_image).into(profile_image1);
             } else {
                 Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(0).user_pic).into(profile_image1);
             }
             if (roomAttendUsersItem.get(1).user_pic.equals("undefined")) {
-                Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image2);
+                Glide.with(RoomDetailActivity.this).load(R.drawable.temp_user_image).into(profile_image2);
             } else {
                 Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(1).user_pic).into(profile_image2);
             }
             if (roomAttendUsersItem.get(2).user_pic.equals("undefined")) {
-                Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image3);
+                Glide.with(RoomDetailActivity.this).load(R.drawable.temp_user_image).into(profile_image3);
             } else {
                 Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(2).user_pic).into(profile_image3);
             }
@@ -286,12 +286,12 @@ public class RoomDetailActivity extends AppCompatActivity {
         } else if (roomMemberSize == 2) {
             profile_image3.setVisibility(View.GONE);
             if (roomAttendUsersItem.get(0).user_pic.equals("undefined")) {
-                Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image1);
+                Glide.with(RoomDetailActivity.this).load(R.drawable.temp_user_image).into(profile_image1);
             } else {
                 Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(0).user_pic).into(profile_image1);
             }
             if (roomAttendUsersItem.get(1).user_pic.equals("undefined")) {
-                Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image2);
+                Glide.with(RoomDetailActivity.this).load(R.drawable.temp_user_image).into(profile_image2);
             } else {
                 Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(1).user_pic).into(profile_image2);
             }
@@ -300,7 +300,7 @@ public class RoomDetailActivity extends AppCompatActivity {
             profile_image2.setVisibility(View.GONE);
             profile_image3.setVisibility(View.GONE);
             if (roomAttendUsersItem.get(0).user_pic.equals("undefined")) {
-                Glide.with(RoomDetailActivity.this).load(R.drawable.test_user).into(profile_image1);
+                Glide.with(RoomDetailActivity.this).load(R.drawable.temp_user_image).into(profile_image1);
             } else {
                 Glide.with(RoomDetailActivity.this).load(roomAttendUsersItem.get(0).user_pic).into(profile_image1);
             }

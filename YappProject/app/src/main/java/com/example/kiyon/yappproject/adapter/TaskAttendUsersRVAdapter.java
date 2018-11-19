@@ -85,7 +85,7 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
         TaskAttendUsersVH taskAttendUsersVH = (TaskAttendUsersVH) holder;
 
         if (taskAttendUsersItems.get(position).user_pic.equals("undefined")) {
-            Glide.with(mContext).load(R.drawable.test_user).into(taskAttendUsersVH.userImage);
+            Glide.with(mContext).load(R.drawable.temp_user_image).into(taskAttendUsersVH.userImage);
         } else {
             Glide.with(mContext).load(taskAttendUsersItems.get(position).user_pic).into(taskAttendUsersVH.userImage);
         }

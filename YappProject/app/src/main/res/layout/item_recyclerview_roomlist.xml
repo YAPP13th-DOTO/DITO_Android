@@ -67,20 +67,20 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/test_user"/>
+                android:src="@drawable/temp_user_image"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/test_user"/>
+                android:src="@drawable/temp_user_image"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/test_user"/>
+                android:src="@drawable/temp_user_image"/>
 
         </LinearLayout>
 

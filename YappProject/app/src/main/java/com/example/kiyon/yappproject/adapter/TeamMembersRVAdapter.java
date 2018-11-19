@@ -56,7 +56,7 @@ public class TeamMembersRVAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         // 유저 이미지
         if (mLists.get(position).user_pic.equals("undefined")) { // 저장된 이미지가 없을 경우
-            Glide.with(mContext).load(R.drawable.test_user).into(teamMembersVH.profileImage);
+            Glide.with(mContext).load(R.drawable.temp_user_image).into(teamMembersVH.profileImage);
         } else {
             Glide.with(mContext).load(mLists.get(position).user_pic).into(teamMembersVH.profileImage);
         }

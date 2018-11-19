@@ -31,7 +31,7 @@
         <activity android:name=".RoomCreateActivity" />
         <activity android:name=".RoomSuccessActivity" />
         <activity android:name=".TeamMembersActivity" />
-        <activity android:name=".AddTaskActivity"/>
+        <activity android:name=".TaskCreateActivity"/>
         <activity android:name=".TaskMemberActivity" />
 
         <service

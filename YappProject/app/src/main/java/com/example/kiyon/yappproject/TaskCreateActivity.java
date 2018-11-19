@@ -37,7 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddTaskActivity extends AppCompatActivity {
+public class TaskCreateActivity extends AppCompatActivity {
 
     public static final String USER_DATA = "USER_DATA";
 
@@ -54,7 +54,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private String taskDeadline;
 
     public static Intent newIntent(Context context, ArrayList<RoomAttendUsersItem> list) {
-        Intent intent = new Intent(context, AddTaskActivity.class);
+        Intent intent = new Intent(context, TaskCreateActivity.class);
         intent.putExtra(USER_DATA, list);
         return intent;
     }
@@ -63,7 +63,7 @@ public class AddTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
+        setContentView(R.layout.activity_task_create);
 
         inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         taskName_edit = findViewById(R.id.taskNameEdit);
@@ -176,13 +176,13 @@ public class AddTaskActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.taskCreateBtn: // 과제 만들기 버튼
                 if (taskName_edit.getText() == null) {
-                    Toasty.warning(AddTaskActivity.this, "과제명을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(TaskCreateActivity.this, "과제명을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (taskSub_edit.getText() == null) {
-                    Toasty.warning(AddTaskActivity.this, "과제 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(TaskCreateActivity.this, "과제 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (memberCount.getText().equals("0명") || memberCount.length() == 0) {
-                    Toasty.warning(AddTaskActivity.this, "과제 수행자를 지정해주세요.", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(TaskCreateActivity.this, "과제 수행자를 지정해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (dateCount.length() == 0) {
-                    Toasty.warning(AddTaskActivity.this, "과제 기한을 설정해주세요.", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(TaskCreateActivity.this, "과제 기한을 설정해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     String tmcode =  attendUserLists.get(0).tm_code;
                     String taskName = taskName_edit.getText().toString(); // 과제명
@@ -198,7 +198,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 dateBtn.setVisibility(View.INVISIBLE);
                 break;
             case R.id.taskMemberLayout: // 과제 멤버 추가하기
-                Intent intent = TaskMemberActivity.newIntent(AddTaskActivity.this, roomAttendUsersItems);
+                Intent intent = TaskMemberActivity.newIntent(TaskCreateActivity.this, roomAttendUsersItems);
                 startActivityForResult(intent,3000);
                 break;
             case R.id.relativeLayout:
@@ -279,7 +279,7 @@ public class AddTaskActivity extends AppCompatActivity {
                     BasicResponseResult basicResponseResult = response.body();
                     if (basicResponseResult != null) {
                         if (basicResponseResult.answer.equals("access")) { // 과제 추가하기 성공
-                            Intent intent = new Intent(AddTaskActivity.this, RoomDetailActivity.class);
+                            Intent intent = new Intent(TaskCreateActivity.this, RoomDetailActivity.class);
                             setResult(RESULT_OK,intent);
                             finish();
                         } else {

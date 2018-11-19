@@ -15,7 +15,7 @@ import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
-import static com.example.kiyon.yappproject.AddTaskActivity.USER_DATA;
+import static com.example.kiyon.yappproject.TaskCreateActivity.USER_DATA;
 
 public class TaskMemberActivity extends AppCompatActivity implements MemberListRVAdapter.ItemClickListener {
 
@@ -73,7 +73,7 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
     }
 
     private void sendUserListToAddTaskActivity() {
-        Intent intent = new Intent(TaskMemberActivity.this, AddTaskActivity.class);
+        Intent intent = new Intent(TaskMemberActivity.this, TaskCreateActivity.class);
         intent.putExtra("users", attendUserLists);
         intent.putExtra("result", attendUserLists.size() + "명");
         setResult(RESULT_OK,intent);

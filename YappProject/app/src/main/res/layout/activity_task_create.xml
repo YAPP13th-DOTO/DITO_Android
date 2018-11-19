@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddTaskActivity"
+    tools:context=".TaskCreateActivity"
     android:onClick="onClickCreateTask">
 
     <android.support.design.widget.AppBarLayout
@@ -49,7 +49,7 @@
         android:fontFamily="@font/nanumbarungothicotf"
         android:layout_below="@id/appBarLayout"
         android:layout_marginTop="32dp"
-        android:layout_marginLeft="27dp"
+        android:layout_marginLeft="28dp"
         android:text="과제명"/>
 
     <EditText
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:fontFamily="@font/nanumbarungothicotf"
-        android:textColor="#adadad"
+        android:textColor="#0f0f0f"
         android:textSize="16sp"
         android:layout_marginRight="31dp"
         android:maxLines="1"
@@ -73,7 +73,7 @@
         android:textColor="#0f0f0f"
         android:layout_below="@id/taskNameEdit"
         android:layout_marginTop="32dp"
-        android:layout_marginLeft="27dp"
+        android:layout_marginLeft="28dp"
         android:text="과제 내용"/>
 
     <EditText
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:fontFamily="@font/nanumbarungothicotf"
-        android:textColor="#adadad"
+        android:textColor="#0f0f0f"
         android:textSize="16sp"
         android:layout_marginRight="31dp"
         android:maxLines="1"

@@ -198,7 +198,7 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
         dialog.setContentView(R.layout.dialog_requestapproval);
 
         TextView textView = dialog.findViewById(R.id.text);
-        Typeface nanumBoldFont = Typeface.createFromAsset(mContext.getAssets(), "nanumbarungothicotfbold.ttf"); // 특정 text 폰트 적용
+        Typeface nanumBoldFont = Typeface.createFromAsset(mContext.getAssets(), "nanumbarungothicbold.ttf"); // 특정 text 폰트 적용
 
         if (type == 1) {
             SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("제출요청을승인하시겠습니까?");

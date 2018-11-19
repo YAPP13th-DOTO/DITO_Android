@@ -9,7 +9,6 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.location.LocationManager;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.LocalBroadcastManager;
@@ -36,7 +35,6 @@ import com.example.kiyon.yappproject.adapter.TaskListRVAdapter;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.OnDataChange;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
-import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
@@ -197,7 +195,7 @@ public class RoomDetailActivity extends AppCompatActivity {
                     break;
                 case R.id.subjectAdd_btn :
                     // 과제 추가 버튼 작업
-                    Intent intent1 = AddTaskActivity.newIntent(RoomDetailActivity.this, roomAttendUsersItem);
+                    Intent intent1 = TaskCreateActivity.newIntent(RoomDetailActivity.this, roomAttendUsersItem);
                     startActivityForResult(intent1, 4000);
                     break;
                 case R.id.roomDone_tv :
@@ -321,6 +319,8 @@ public class RoomDetailActivity extends AppCompatActivity {
                     if (taskListResponseResult != null) {
                         ArrayList<TaskInfoItem> taskInfoItems = taskListResponseResult.list;
                         if (taskInfoItems.size() != 0) { // 과제 목록이 없을 경우
+                            findViewById(R.id.temp_iv).setVisibility(View.GONE);
+                            findViewById(R.id.temp_tv).setVisibility(View.GONE);
                             taskListRVAdapter.setData(taskInfoItems);
                         } else {
                             findViewById(R.id.temp_iv).setVisibility(View.VISIBLE);

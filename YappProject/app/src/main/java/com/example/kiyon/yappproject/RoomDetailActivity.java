@@ -1,10 +1,14 @@
 package com.example.kiyon.yappproject;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
@@ -14,6 +18,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +33,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.adapter.TaskListRVAdapter;
+import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.OnDataChange;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
+import com.example.kiyon.yappproject.common.UserInfoReturn;
+import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 import com.example.kiyon.yappproject.model.Task.TaskInfoItem;
@@ -150,6 +159,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         ImageView moreProfile = findViewById(R.id.moreProfile_iv);
         moreProfile.setOnClickListener(onClickListener);
         subject_add.setOnClickListener(onClickListener);
+        room_done.setOnClickListener(onClickListener);
 
         // firebase 푸쉬메시지에서 오는 broadcast 등록
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("DataChange"));
@@ -191,11 +201,68 @@ public class RoomDetailActivity extends AppCompatActivity {
                     startActivityForResult(intent1, 4000);
                     break;
                 case R.id.roomDone_tv :
-                    // 방 완료 버튼 작업
+                    setDialogView();
                     break;
             }
         }
     };
+
+    private void setDialogView() {
+
+        final Dialog dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.dialog_roomfinish);
+        TextView text = dialog.findViewById(R.id.text);
+
+        // 특정 텍스트 폰트 적용
+        Typeface nanumBoldFont = Typeface.createFromAsset(getAssets(), "nanumbarungothicbold.ttf");
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("팀플을 완료하시겠습니까?완료 시 수정이 불가능합니다.");
+        spannableStringBuilder.insert(13, "\n");
+        spannableStringBuilder.setSpan (new CustomTypefaceSpan("", nanumBoldFont), 4, 6, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        text.setText(spannableStringBuilder);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        dialog.findViewById(R.id.cancel_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.findViewById(R.id.ok_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishRoomToServer(roomListResponseResult.tm_code);
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void finishRoomToServer(String tmcode) {
+
+        Call<BasicResponseResult> call = RetrofitServerClient.getInstance().getService().RoomFinish(tmcode);
+        call.enqueue(new Callback<BasicResponseResult>() {
+            @Override
+            public void onResponse(Call<BasicResponseResult> call, Response<BasicResponseResult> response) {
+                if (response.isSuccessful()) {
+                    BasicResponseResult basicResponseResult = response.body();
+                    if (basicResponseResult != null) {
+                        if (basicResponseResult.answer.equals("access")) {
+                            // 방종료
+                            finish();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponseResult> call, Throwable t) {
+
+            }
+        });
+    }
 
     public void showProfileImage() {
 

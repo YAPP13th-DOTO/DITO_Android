@@ -79,8 +79,15 @@ public interface ApiService {
             @Query("Aid") String Aid, @Query("name") String name, @Query("Bid") String Bid, @Query("as_num") int as_num
     );
 
+    // 과제 승인 수락 및 거절
     @GET("push/answer")
     Call<BasicResponseResult> ResponseApproval (
             @Query("id") String id, @Query("accept") int accept, @Query("as_num") int as_num
+    );
+
+    // 방 마감
+    @GET("done")
+    Call<BasicResponseResult> RoomFinish (
+        @Query("tmcode") String tmcode
     );
 }

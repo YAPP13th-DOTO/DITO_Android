@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="282dp"
+    android:layout_height="169dp"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_complete_background">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:fontFamily="@font/nanumbarungothicotf"
+        android:layout_marginTop="48dp"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/black"
+        android:letterSpacing="0.01"
+        android:lineSpacingExtra="7sp"
+        android:text="팀플을 완료하시겠습니까?\n완료 시 수정이 불가능합니다."
+        />
+    <TextView
+        android:id="@+id/cancel_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#111111"
+        android:letterSpacing="0.07"
+        android:fontFamily="@font/nanumbarungothicotf"
+        android:layout_toLeftOf="@id/ok_tv"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/text"
+        android:layout_marginRight="32dp"
+        android:lineSpacingExtra="11sp"
+        android:text="취소"
+        />
+    <TextView
+        android:id="@+id/ok_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="23dp"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/text"
+        android:letterSpacing="0.07"
+        android:lineSpacingExtra="11sp"
+        android:textColor="#111111"
+        android:textSize="14sp"
+        android:fontFamily="@font/nanumbarungothicotf"
+        android:text="확인"/>
+
+</RelativeLayout>

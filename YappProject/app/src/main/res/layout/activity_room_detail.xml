@@ -113,6 +113,7 @@
                     android:textSize="15sp"
                     android:fontFamily="@font/robotobold"
                     android:textStyle="bold"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
                     android:textColor="#111111"
                     android:lineSpacingExtra="5sp"
                     android:gravity="end"

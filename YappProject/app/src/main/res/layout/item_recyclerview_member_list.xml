@@ -21,6 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:fontFamily="@font/nanumbarungothicotf"
+        android:textColor="#0f0f0f"
+        android:textSize="14sp"
         android:layout_toRightOf="@id/image"
         android:layout_marginLeft="19dp"
         android:text="전유희"/>

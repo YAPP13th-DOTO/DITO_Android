@@ -31,7 +31,7 @@
                 android:textColor="#0f0f0f"
                 android:lineSpacingExtra="5sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/nanumbarungothicbold"
+                android:fontFamily="@font/nanumbarungothicotfbold"
                 android:layout_gravity="center"
                 android:text="과제 수행자 지정하기"
                 />

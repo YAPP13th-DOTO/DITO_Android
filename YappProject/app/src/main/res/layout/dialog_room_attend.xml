@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="#111111"
-            android:fontFamily="@font/nanumbarungothic"
+            android:fontFamily="@font/nanumbarungothicotf"
             android:letterSpacing="0.01"
             android:lineSpacingExtra="7sp"
             android:text="팀플 참여코드를 입력하세요." />
@@ -28,6 +28,7 @@
         android:id="@+id/roomcode_edit"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:layout_gravity="center" />
 
     <LinearLayout
@@ -45,7 +46,7 @@
             android:textColor="#111111"
             android:textSize="14sp"
             android:layout_marginRight="32dp"
-            android:fontFamily="@font/nanumbarungothic"
+            android:fontFamily="@font/nanumbarungothicotf"
             android:text="취소"/>
         <TextView
             android:id="@+id/ok_tv"
@@ -55,7 +56,7 @@
             android:lineSpacingExtra="11sp"
             android:textColor="#111111"
             android:textSize="14sp"
-            android:fontFamily="@font/nanumbarungothic"
+            android:fontFamily="@font/nanumbarungothicotf"
             android:text="확인"/>
     </LinearLayout>
 

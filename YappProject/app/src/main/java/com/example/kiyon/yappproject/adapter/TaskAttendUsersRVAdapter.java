@@ -1,8 +1,14 @@
 package com.example.kiyon.yappproject.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.OnDataChange;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
@@ -113,7 +120,6 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
 //        - req : 0 accept : 0일경우
 //        유저화면 : 미제출
 //        방장화면 : 미제출
-
         if (taskAttendUsersItems.get(position).req == 0 && taskAttendUsersItems.get(position).accept == 0) {
             taskAttendUsersVH.submitStatus_layout.setVisibility(View.GONE);
             taskAttendUsersVH.submitStatus.setVisibility(View.VISIBLE);
@@ -137,8 +143,7 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
         taskAttendUsersVH.taskApproval_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendResponseApprovalToServer(1, position);
-                onDataChange.onChange();
+                setDialogView(1, 1, position); // 승인 버튼을 눌렀을 경우
             }
         });
 
@@ -146,8 +151,7 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
         taskAttendUsersVH.taskApproval_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendResponseApprovalToServer(0, position);
-                onDataChange.onChange();
+                setDialogView(0, 0, position); // 거절 버튼을 눌렀을 경우
             }
         });
     }
@@ -171,6 +175,14 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
             @Override
             public void onResponse(Call<BasicResponseResult> call, Response<BasicResponseResult> response) {
                 // 승인 요청 완료
+                if (response.isSuccessful()) {
+                    BasicResponseResult basicResponseResult = response.body();
+                    if (basicResponseResult != null) {
+                        if (basicResponseResult.answer.equals("access")) {
+                            onDataChange.onChange();
+                        }
+                    }
+                }
             }
 
             @Override
@@ -178,5 +190,47 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
                 Toasty.error(mContext, "메시지 실패", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    // accept : 승인(1) 승인거절(0)
+    private void setDialogView(int type, final int accept, final int position) {
+        final Dialog dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.dialog_requestapproval);
+
+        TextView textView = dialog.findViewById(R.id.text);
+        Typeface nanumBoldFont = Typeface.createFromAsset(mContext.getAssets(), "nanumbarungothicotfbold.ttf"); // 특정 text 폰트 적용
+
+        if (type == 1) {
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("제출요청을승인하시겠습니까?");
+            spannableStringBuilder.insert(5, "\n");
+            spannableStringBuilder.setSpan (new CustomTypefaceSpan("", nanumBoldFont), 5, 8, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            textView.setText(spannableStringBuilder);
+        } else {
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("제출요청을거절하시겠습니까?");
+            spannableStringBuilder.insert(5, "\n");
+            spannableStringBuilder.setSpan (new CustomTypefaceSpan("", nanumBoldFont), 5, 8, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            textView.setText(spannableStringBuilder);
+        }
+
+
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        dialog.findViewById(R.id.cancel_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.findViewById(R.id.ok_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendResponseApprovalToServer(accept, position);
+                dialog.dismiss();
+            }
+        });
+
     }
 }

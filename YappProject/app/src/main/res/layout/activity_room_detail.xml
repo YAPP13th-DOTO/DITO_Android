@@ -34,7 +34,7 @@
                     android:textSize="20sp"
                     android:textColor="#111111"
                     android:lineSpacingExtra="0sp"
-                    android:fontFamily="@font/nanumbarungothicbold"
+                    android:fontFamily="@font/nanumbarungothicotfbold"
                     android:layout_centerHorizontal="true"
                     android:layout_above="@+id/subjectName"
                     android:layout_marginBottom="6dp"
@@ -50,7 +50,7 @@
                     android:layout_above="@+id/layout"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="34dp"
-                    android:fontFamily="@font/nanumbarungothiclight"
+                    android:fontFamily="@font/nanumbarungothicotflight"
                     android:text="마케팅 커뮤니케이션" />
                 <LinearLayout
                     android:id="@+id/layout"
@@ -103,7 +103,7 @@
                     android:textSize="15sp"
                     android:textColor="#111111"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/nanumbarungothicbold"
+                    android:fontFamily="@font/nanumbarungothicotfbold"
                     android:layout_gravity="center"
                     android:lineSpacingExtra="5sp" />
                 <TextView
@@ -170,7 +170,7 @@
         android:background="@color/yellow"
         android:textColor="#0f0f0f"
         android:textSize="20sp"
-        android:fontFamily="@font/nanumbarungothicbold"
+        android:fontFamily="@font/nanumbarungothicotfbold"
         android:lineSpacingExtra="0sp"
         android:layout_gravity="bottom"
         app:layout_behavior="com.example.kiyon.yappproject.common.QuickReturnFooterBehavior"

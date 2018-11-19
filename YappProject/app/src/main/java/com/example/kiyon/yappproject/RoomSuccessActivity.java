@@ -73,7 +73,7 @@ public class RoomSuccessActivity extends AppCompatActivity {
         title_tv = findViewById(R.id.title_tv);
 
         // 특정 텍스트 폰트 적용
-        Typeface nanumBoldFont = Typeface.createFromAsset(getAssets(), "nanumbarungothicbold.ttf");
+        Typeface nanumBoldFont = Typeface.createFromAsset(getAssets(), "nanumbarungothicotfbold.ttf");
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(roomName + " 과목");
         spannableStringBuilder.insert(roomName.length() + 3,"\n");

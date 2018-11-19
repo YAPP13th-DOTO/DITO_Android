@@ -49,6 +49,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
                 String title = remoteMessage.getData().get("title");
                 String body = remoteMessage.getData().get("content");
                 sendNotificationFromServer(title, body);
+                // 메시지를 받았을 경우 데이터 갱신을 위해 브로드캐시트 등록
                 broadcaster.sendBroadcast(new Intent("DataChange"));
             } else {
                 handleNow();

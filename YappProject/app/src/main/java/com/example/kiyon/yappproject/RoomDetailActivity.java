@@ -131,11 +131,13 @@ public class RoomDetailActivity extends AppCompatActivity {
             }
         });
 
-        // 방, 과목 이름 셋팅
+        // 방 이름,내용,코드 셋팅
         TextView title_tv = findViewById(R.id.roomName);
         title_tv.setText(roomListResponseResult.tm_name);
         TextView subject_tv = findViewById(R.id.subjectName);
         subject_tv.setText(roomListResponseResult.sub_name);
+        TextView tmcode_tv = findViewById(R.id.tmcode);
+        tmcode_tv.setText(String.valueOf("방 코드 : " + roomListResponseResult.tm_code));
 
         // 참여자 이미지 셋팅
         profile_image1 = findViewById(R.id.profile_image1);

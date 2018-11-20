@@ -110,6 +110,13 @@ public class RoomSuccessActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.complete_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         dialog = new Dialog(this);
 
 

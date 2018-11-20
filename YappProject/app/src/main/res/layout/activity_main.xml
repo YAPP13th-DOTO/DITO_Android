@@ -30,10 +30,33 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/default_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom|center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#666666"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="8sp"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:text="팀플방에 참여하거나\n새로운 팀플방을 직접 만들어보세요!" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nonroomlist_image"/>
+        </LinearLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview"
                 android:paddingTop="9dp"

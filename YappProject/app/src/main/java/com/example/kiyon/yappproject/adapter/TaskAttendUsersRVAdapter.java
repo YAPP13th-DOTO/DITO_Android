@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
-import com.example.kiyon.yappproject.common.OnDataChange;
+import com.example.kiyon.yappproject.Interface.OnDataChange;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.UserInfoReturn;

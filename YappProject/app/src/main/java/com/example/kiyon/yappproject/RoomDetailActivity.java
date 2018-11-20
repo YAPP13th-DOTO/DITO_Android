@@ -33,8 +33,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.adapter.TaskListRVAdapter;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
-import com.example.kiyon.yappproject.common.OnDataChange;
+import com.example.kiyon.yappproject.Interface.OnDataChange;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
+import com.example.kiyon.yappproject.common.StatusBarColorChange;
 import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
@@ -113,7 +114,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         toolbarTitle_tv.setText(roomListResponseResult.tm_name);
 
         //상태바 색상
-        setStatusBarColor(RoomDetailActivity.this, getResources().getColor(R.color.yellow));
+        StatusBarColorChange.setStatusBarColor(RoomDetailActivity.this, getResources().getColor(R.color.yellow));
 
         head_layout = findViewById(R.id.head_layout);
         AppBarLayout appBarLayout = findViewById(R.id.appBar_layout);
@@ -349,15 +350,6 @@ public class RoomDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void setStatusBarColor(Activity activity, int color) {
-        Window window = activity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(color);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

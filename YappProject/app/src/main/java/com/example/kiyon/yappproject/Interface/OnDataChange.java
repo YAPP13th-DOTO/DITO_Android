@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject.common;
+package com.example.kiyon.yappproject.Interface;
 
 public interface OnDataChange {
     void onChange();

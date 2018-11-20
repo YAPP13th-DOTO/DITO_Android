@@ -61,6 +61,7 @@
         android:textColor="#0f0f0f"
         android:textSize="16sp"
         android:layout_marginRight="31dp"
+        android:singleLine="true"
         android:maxLines="1"
         android:layout_below="@id/taskNameTxt"
         android:hint="과제명을 입력해주세요."/>
@@ -86,6 +87,7 @@
         android:textSize="16sp"
         android:layout_marginRight="31dp"
         android:maxLines="1"
+        android:singleLine="true"
         android:layout_below="@id/subjectSubTxt"
         android:hint="과제 내용을 입력헤주세요."/>
 

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.kiyon.yappproject.adapter.AttendTeamMemberRVAdapter;
 import com.example.kiyon.yappproject.adapter.MemberListRVAdapter;
+import com.example.kiyon.yappproject.common.StatusBarColorChange;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class TaskMemberActivity extends AppCompatActivity implements MemberListR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_member);
+
+        // 상태바 색상 변경
+        StatusBarColorChange.setStatusBarColor(TaskMemberActivity.this, getResources().getColor(R.color.yellow));
 
         //팀원 전체
         recyclerView2 = findViewById(R.id.recyclerview2);

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
+import com.example.kiyon.yappproject.common.StatusBarColorChange;
 import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -64,6 +65,9 @@ public class TaskCreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_create);
+
+        // 상태바 색상 변경
+        StatusBarColorChange.setStatusBarColor(TaskCreateActivity.this, getResources().getColor(R.color.yellow));
 
         inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         taskName_edit = findViewById(R.id.taskNameEdit);

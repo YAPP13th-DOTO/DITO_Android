@@ -96,7 +96,7 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 0) {
-            return new RoomListProgressVH(LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_roomlist, parent, false));
+            return new RoomListProgressVH(LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_room_list, parent, false));
         } else {
             return new RoomListFinishVH(LayoutInflater.from(mContext).inflate(R.layout.item_recyclerview_finish_roomlist, parent, false));
         }

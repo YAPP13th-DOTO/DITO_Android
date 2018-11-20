@@ -208,11 +208,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    // 팀방 목록 가져오기
+    // 방 목록 가져오기
     private void loadRoomData() {
 
         String userID = UserInfoReturn.getInstance().getUserId(MainActivity.this);
-        Log.e("TAG","user = " + userID);
 
         Call<ArrayList<RoomListResponseResult>> call = RetrofitServerClient.getInstance().getService().RoomListResponseResult(userID);
         call.enqueue(new Callback<ArrayList<RoomListResponseResult>>() {
@@ -221,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 if (response.isSuccessful()) {
                     ArrayList<RoomListResponseResult> list = response.body();
                     if (list != null) {
+                        findViewById(R.id.default_layout).setVisibility(View.GONE);
+                        swipeRefreshLayout.setVisibility(View.VISIBLE);
                         roomListRVAdapter.setRoomData(list);
                         swipeRefreshLayout.setRefreshing(false); // 리플레쉬 종료
                     }
@@ -229,7 +230,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             @Override
             public void onFailure(Call<ArrayList<RoomListResponseResult>> call, Throwable t) {
-
             }
         });
     }

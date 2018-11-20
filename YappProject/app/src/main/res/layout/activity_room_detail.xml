@@ -81,6 +81,7 @@
                         android:layout_height="32dp"
                         android:src="@drawable/temp_user_image"/>
                 </LinearLayout>
+               
                 <ImageView
                     android:id="@+id/moreProfile_iv"
                     android:layout_width="20dp"
@@ -90,6 +91,7 @@
                     android:layout_toRightOf="@+id/layout"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="center"/>
+
             </RelativeLayout>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

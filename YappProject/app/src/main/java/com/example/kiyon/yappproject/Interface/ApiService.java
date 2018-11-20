@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject.common;
+package com.example.kiyon.yappproject.Interface;
 
 import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Room.CreateRoomResponseResult;

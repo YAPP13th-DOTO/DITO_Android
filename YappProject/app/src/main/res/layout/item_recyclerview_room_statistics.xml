@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:id="@+id/relativeLayout1"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="#ffffff">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:civ_border_color="#707070"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/temp_user_image"
+            android:layout_marginBottom="15dp"
+            app:civ_border_width="1dp"/>
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#0f0f0f"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/nanumbarungothicotfbold"
+            android:layout_toRightOf="@id/profile_image"
+            android:layout_centerVertical="true"
+            android:text="박나래님의 과제 성실도"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp">
+            <TextView
+                android:id="@+id/percent_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="#0f0f0f"
+                android:fontFamily="@font/nanumbarungothicotfbold"
+                android:text="80"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#0f0f0f"
+                android:fontFamily="@font/nanumbarungothicotflight"
+                android:text="%"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/moreInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icn_arrow_down"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/moreinfo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout1"
+        android:background="#f2f2f2"
+        android:visibility="gone">
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0f0f0f"
+                android:textSize="12dp"
+                android:fontFamily="@font/nanumbarungothicotf"
+                android:lineSpacingExtra="8sp"
+                android:text="총 과제 참여 횟수 "/>
+            <TextView
+                android:id="@+id/taskCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0f0f0f"
+                android:fontFamily="@font/nanumbarungothicotfbold"
+                android:textSize="12dp"
+                android:lineSpacingExtra="8sp"
+                android:text="5회"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayout"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <lecho.lib.hellocharts.view.PieChartView
+                android:id="@+id/chart"
+                android:layout_width="145dp"
+                android:layout_height="145dp"
+                android:scaleX="1.1"
+                android:scaleY="1.1"
+                android:layout_marginLeft="20dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp">
+
+                <LinearLayout
+                    android:id="@+id/layout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/passTxt"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_marginRight="3dp"
+                        android:background="#c3c3c3" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#444444"
+                        android:textSize="10sp"
+                        android:layout_marginRight="3dp"
+                        android:text="정시완료"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/completeRecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/layout1">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <LinearLayout
+                    android:id="@+id/layout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:layout_below="@id/completeRecyclerview"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/lateTxt"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_marginRight="3dp"
+                        android:background="#999999"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#444444"
+                        android:textSize="10sp"
+                        android:layout_marginRight="3dp"
+                        android:text="지각"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lateRecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/layout2"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <LinearLayout
+                    android:id="@+id/layout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:layout_below="@id/lateRecyclerview"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/nonPassTxt"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:layout_marginRight="3dp"
+                        android:background="#666666"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#444444"
+                        android:textSize="10sp"
+                        android:layout_marginRight="3dp"
+                        android:text="미완료"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/uncompleteRecyclerview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/layout3">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

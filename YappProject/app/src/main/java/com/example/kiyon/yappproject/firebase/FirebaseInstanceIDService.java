@@ -1,9 +1,7 @@
 package com.example.kiyon.yappproject.firebase;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.kiyon.yappproject.MainActivity;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -26,7 +24,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-        Log.d("test1414", "Refreshed token: " + refreshedToken);
+//        Log.d("test1414", "Refreshed token: " + refreshedToken);
 
         sendRegistrationToServer(refreshedToken);
     }

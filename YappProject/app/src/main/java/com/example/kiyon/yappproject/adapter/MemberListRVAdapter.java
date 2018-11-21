@@ -56,7 +56,7 @@ public class MemberListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         final MemberListVH memberListVH = (MemberListVH) holder;
 
         if(roomAttendUsersItems.get(position).user_pic.equals("undefined")) {
-            Glide.with(context).load(R.drawable.test_user).into(memberListVH.profileImage);
+            Glide.with(context).load(R.drawable.temp_user_image).into(memberListVH.profileImage);
         }else {
             Glide.with(context).load(roomAttendUsersItems.get(position).user_pic).into(memberListVH.profileImage);
         }

@@ -47,7 +47,7 @@ public class AttendTeamMemberRVAdapter extends RecyclerView.Adapter<RecyclerView
         final AttendTeamMemberRV attendTeamMemberRV = (AttendTeamMemberRV) holder;
 
         if(roomAttendUsersItems.get(position).user_pic.equals("undefined")) {
-            Glide.with(context).load(R.drawable.test_user).into(attendTeamMemberRV.profile_img);
+            Glide.with(context).load(R.drawable.temp_user_image).into(attendTeamMemberRV.profile_img);
         }else {
             Glide.with(context).load(roomAttendUsersItems.get(position).user_pic).into(attendTeamMemberRV.profile_img);
         }

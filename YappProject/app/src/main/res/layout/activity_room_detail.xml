@@ -66,21 +66,34 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_marginRight="8dp"
-                        android:src="@drawable/test_user"/>
+                        android:src="@drawable/temp_user_image"/>
                     <de.hdodenhof.circleimageview.CircleImageView
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/profile_image2"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_marginRight="8dp"
-                        android:src="@drawable/test_user"/>
+                        android:src="@drawable/temp_user_image"/>
                     <de.hdodenhof.circleimageview.CircleImageView
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/profile_image3"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/test_user"/>
+                        android:src="@drawable/temp_user_image"/>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/tmcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanumbarungothicotf"
+                    android:layout_above="@id/roomName"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="방 코드 : XKoHo" />
                 <ImageView
                     android:id="@+id/moreProfile_iv"
                     android:layout_width="20dp"
@@ -90,6 +103,7 @@
                     android:layout_toRightOf="@+id/layout"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="center"/>
+
             </RelativeLayout>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

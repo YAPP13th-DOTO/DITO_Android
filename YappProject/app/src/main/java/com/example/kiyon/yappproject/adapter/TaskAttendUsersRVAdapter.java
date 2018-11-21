@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
-import com.example.kiyon.yappproject.common.OnDataChange;
+import com.example.kiyon.yappproject.Interface.OnDataChange;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.UserInfoReturn;
@@ -85,7 +85,7 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
         TaskAttendUsersVH taskAttendUsersVH = (TaskAttendUsersVH) holder;
 
         if (taskAttendUsersItems.get(position).user_pic.equals("undefined")) {
-            Glide.with(mContext).load(R.drawable.test_user).into(taskAttendUsersVH.userImage);
+            Glide.with(mContext).load(R.drawable.temp_user_image).into(taskAttendUsersVH.userImage);
         } else {
             Glide.with(mContext).load(taskAttendUsersItems.get(position).user_pic).into(taskAttendUsersVH.userImage);
         }
@@ -198,7 +198,7 @@ public class TaskAttendUsersRVAdapter extends RecyclerView.Adapter<RecyclerView.
         dialog.setContentView(R.layout.dialog_requestapproval);
 
         TextView textView = dialog.findViewById(R.id.text);
-        Typeface nanumBoldFont = Typeface.createFromAsset(mContext.getAssets(), "nanumbarungothicotfbold.ttf"); // 특정 text 폰트 적용
+        Typeface nanumBoldFont = Typeface.createFromAsset(mContext.getAssets(), "nanumbarungothicbold.ttf"); // 특정 text 폰트 적용
 
         if (type == 1) {
             SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("제출요청을승인하시겠습니까?");

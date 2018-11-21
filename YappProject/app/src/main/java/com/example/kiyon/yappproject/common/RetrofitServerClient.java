@@ -1,5 +1,7 @@
 package com.example.kiyon.yappproject.common;
 
+import com.example.kiyon.yappproject.Interface.ApiService;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;

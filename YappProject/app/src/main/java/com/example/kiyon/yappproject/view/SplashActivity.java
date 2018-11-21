@@ -11,6 +11,7 @@ import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,7 +76,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<LoginResponseResult> call, Throwable t) {
                     // 서버 에러
-                    Toast.makeText(getApplicationContext(), "서버 오류" , Toast.LENGTH_SHORT).show();
+                    Toasty.error(getApplicationContext(), "서버 오류" , Toast.LENGTH_SHORT).show();
                 }
             });
         }

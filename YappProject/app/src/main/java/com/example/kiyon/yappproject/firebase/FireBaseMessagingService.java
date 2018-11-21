@@ -83,6 +83,7 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
                         .setContentText(body)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
                         .setContentIntent(pendingIntent);
 
 

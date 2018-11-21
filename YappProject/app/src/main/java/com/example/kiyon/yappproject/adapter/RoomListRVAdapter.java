@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.kiyon.yappproject.RoomDetailActivity;
+import com.example.kiyon.yappproject.view.RoomDetailActivity;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;

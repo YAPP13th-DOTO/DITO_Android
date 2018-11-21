@@ -156,8 +156,9 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (taskInfoItems.get(position).users.get(i).req == 1) { // 과제 승인요청을 했을 경우 버튼 클릭처리
                     taskListVH.taskSubmit.setButtonDrawable(R.drawable.check_1);
                     taskListVH.taskSubmit.setEnabled(false);
-                } else {
+                } else { // req 값이 0일 경우
                     taskListVH.taskSubmit.setButtonDrawable(R.drawable.uncheck_1);
+                    taskListVH.taskSubmit.setChecked(false);
                     taskListVH.taskSubmit.setEnabled(true);
                 }
             }

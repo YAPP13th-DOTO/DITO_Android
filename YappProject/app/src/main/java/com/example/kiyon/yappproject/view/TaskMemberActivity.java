@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject;
+package com.example.kiyon.yappproject.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.adapter.AttendTeamMemberRVAdapter;
 import com.example.kiyon.yappproject.adapter.MemberListRVAdapter;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
@@ -16,7 +17,7 @@ import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
 
-import static com.example.kiyon.yappproject.TaskCreateActivity.USER_DATA;
+import static com.example.kiyon.yappproject.view.TaskCreateActivity.USER_DATA;
 
 public class TaskMemberActivity extends AppCompatActivity implements MemberListRVAdapter.ItemClickListener {
 

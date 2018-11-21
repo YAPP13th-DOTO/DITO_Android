@@ -1,8 +1,7 @@
-package com.example.kiyon.yappproject;
+package com.example.kiyon.yappproject.view;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -22,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.adapter.RoomListRVAdapter;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
@@ -32,8 +32,6 @@ import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.kakao.usermgmt.response.model.User;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        Dito {
+            keyAlias 'Dito'
+            keyPassword 'd2384812'
+            storeFile file('C:/Users/kiyon/apk_key/yapp_project/yapp_apk_key.jks')
+            storePassword 'd2384812'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.kiyon.yappproject"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.Dito
         }
     }
 }
@@ -39,6 +48,5 @@ dependencies {
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
     implementation 'com.google.firebase:firebase-core:12.0.1'
     implementation 'com.google.firebase:firebase-messaging:12.0.1'
-
 }
 apply plugin: 'com.google.gms.google-services'

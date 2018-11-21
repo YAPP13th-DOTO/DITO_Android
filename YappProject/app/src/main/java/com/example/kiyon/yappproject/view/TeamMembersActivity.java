@@ -1,4 +1,4 @@
-package com.example.kiyon.yappproject;
+package com.example.kiyon.yappproject.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.adapter.TeamMembersRVAdapter;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 

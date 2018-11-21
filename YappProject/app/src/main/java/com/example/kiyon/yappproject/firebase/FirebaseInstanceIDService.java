@@ -1,9 +1,7 @@
 package com.example.kiyon.yappproject.firebase;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.kiyon.yappproject.MainActivity;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.google.firebase.iid.FirebaseInstanceId;

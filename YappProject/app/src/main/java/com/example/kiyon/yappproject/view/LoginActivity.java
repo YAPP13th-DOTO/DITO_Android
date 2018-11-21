@@ -1,9 +1,13 @@
-package com.example.kiyon.yappproject;
+package com.example.kiyon.yappproject.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
 import com.kakao.auth.AuthType;
@@ -22,6 +27,9 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -50,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
-
+        getHashKey();
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
 
@@ -67,18 +75,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //    private void getHashKey() {
-//        try {
-//            PackageInfo info = getPackageInfo(LoginActivity.this, PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("HASH_KEY", "key_hash=" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void getHashKey() {
+        try {
+            PackageInfo info = getPackageInfo(LoginActivity.this, PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("HASH_KEY", "key_hash=" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

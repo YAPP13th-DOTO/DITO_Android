@@ -1,6 +1,5 @@
-package com.example.kiyon.yappproject;
+package com.example.kiyon.yappproject.view;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +8,6 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -23,14 +21,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.adapter.TaskListRVAdapter;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.Interface.OnDataChange;

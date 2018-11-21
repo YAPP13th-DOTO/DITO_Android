@@ -1,17 +1,15 @@
-package com.example.kiyon.yappproject;
+package com.example.kiyon.yappproject.view;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.UserInfoReturn;
 import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -7,18 +7,19 @@ import android.support.transition.TransitionManager;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.kiyon.yappproject.common.OnDataChange;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.UserInfoReturn;
+import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
 import com.example.kiyon.yappproject.model.Task.TaskInfoItem;
 
 import java.text.ParseException;
@@ -26,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import okhttp3.ResponseBody;
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +41,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ViewGroup mRootView;
     private int taskAttendUserPostion;
     private boolean isAttendChecked = false;
+    private OnDataChange onDataChange;
 
     public TaskListRVAdapter(Context context, ViewGroup rootView, String kakao_id) {
         mContext = context;
@@ -60,6 +62,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private class TaskListVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         private RelativeLayout taskItem_layout;
         private TextView task_title;
+        private TextView task_content;
         private ImageView arrow_iv;
         private AppCompatCheckBox taskSubmit;
         private TextView taskDeadLine;
@@ -69,6 +72,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
             taskItem_layout = itemView.findViewById(R.id.taskItem_layout);
             task_title = itemView.findViewById(R.id.subjectName_tv);
+            task_content = itemView.findViewById(R.id.subjectContent_tv);
             arrow_iv = itemView.findViewById(R.id.arrow_iv);
             taskSubmit = itemView.findViewById(R.id.check_iv);
             taskDeadLine = itemView.findViewById(R.id.time_tv);
@@ -88,7 +92,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 case R.id.check_iv :
                     // 한번 체크하면 버튼을 비활성화 시키기 때문에 else문은 따로 필요없음.
                     if (taskSubmit.isChecked()) {
-//                        sendRequestApprovalToServer();
+                        sendRequestApprovalToServer(getAdapterPosition());
                         taskSubmit.setButtonDrawable(R.drawable.check_1);
                         taskSubmit.setEnabled(false);
                     }
@@ -120,6 +124,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TaskListVH taskListVH = (TaskListVH) holder;
 
         taskListVH.task_title.setText(taskInfoItems.get(position).as_name);
+        taskListVH.task_content.setText(taskInfoItems.get(position).as_content);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -154,6 +159,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             }
         }
+
         if (isAttendChecked) { // 과제에 본인이 참여했으면 제출버튼 보여줌
             taskListVH.taskSubmit.setVisibility(View.VISIBLE);
         } else { // 없으면 제출버튼 삭제
@@ -162,7 +168,7 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-        taskAttendUsersRVAdapter.setData(taskInfoItems.get(position).users);
+        taskAttendUsersRVAdapter.setData(taskInfoItems.get(position).users, roomCaptain_id, onDataChange);
     }
 
     @Override
@@ -170,27 +176,33 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return taskInfoItems.size();
     }
 
-//    과제 key 값을 보내야 해당 승인요청 작업이 가능한데 서버 실수로 작업 미뤄짐.
-//    private void sendRequestApprovalToServer() {
-//
-//        // 승인 요청을 보내기 위해서 방장 id 값, 승인요청을 보내는 유저 이름이 필요하다.
-//        Call<ResponseBody> call = RetrofitServerClient.getInstance().getService().RequestApprovalResponseResult(roomCaptain_id, UserInfoReturn.getInstance().getUserName(mContext));
-//        Log.d("test1616", String.valueOf(call.request().url()));
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if (response.isSuccessful()) {
-//                    Log.d("test1616" , String.valueOf(response.body()));
-//                    Log.d("test1616" , String.valueOf(response.message()));
-//                    Log.d("test1616" , String.valueOf(response.code()));
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
+    private void sendRequestApprovalToServer(int position) {
+
+        // 승인 요청을 보내기 위해서 방장 id 값, 승인요청을 보내는 유저 이름이 필요하다.
+        Call<BasicResponseResult> call = RetrofitServerClient.getInstance().getService().RequestApproval(roomCaptain_id, UserInfoReturn.getInstance().getUserName(mContext),
+                UserInfoReturn.getInstance().getUserId(mContext), taskInfoItems.get(position).as_num);
+
+        call.enqueue(new Callback<BasicResponseResult>() {
+            @Override
+            public void onResponse(Call<BasicResponseResult> call, Response<BasicResponseResult> response) {
+                if (response.isSuccessful()) {
+                    BasicResponseResult basicResponseResult = response.body();
+                    if (basicResponseResult != null) {
+                        if (basicResponseResult.answer.equals("access")) {
+                            onDataChange.onChange();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponseResult> call, Throwable t) {
+                Toasty.error(mContext, "메시지 실패" , Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setOnClick(OnDataChange onClick) {
+        onDataChange = onClick;
+    }
 }

@@ -33,7 +33,7 @@
                 android:textColor="#0f0f0f"
                 android:lineSpacingExtra="5sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/nanumbarungothicbold"
+                android:fontFamily="@font/nanumbarungothicotfbold"
                 android:layout_gravity="center"
                 android:text="과제 추가하기"
                 />
@@ -46,9 +46,10 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:textColor="#0f0f0f"
+        android:fontFamily="@font/nanumbarungothicotf"
         android:layout_below="@id/appBarLayout"
         android:layout_marginTop="32dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="27dp"
         android:text="과제명"/>
 
     <EditText
@@ -56,6 +57,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
+        android:fontFamily="@font/nanumbarungothicotf"
+        android:textColor="#adadad"
+        android:textSize="16sp"
         android:layout_marginRight="31dp"
         android:maxLines="1"
         android:layout_below="@id/taskNameTxt"
@@ -69,7 +73,7 @@
         android:textColor="#0f0f0f"
         android:layout_below="@id/taskNameEdit"
         android:layout_marginTop="32dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="27dp"
         android:text="과제 내용"/>
 
     <EditText
@@ -77,6 +81,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
+        android:fontFamily="@font/nanumbarungothicotf"
+        android:textColor="#adadad"
+        android:textSize="16sp"
         android:layout_marginRight="31dp"
         android:maxLines="1"
         android:layout_below="@id/subjectSubTxt"
@@ -93,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18dp"
+            android:fontFamily="@font/nanumbarungothicotf"
             android:layout_centerVertical="true"
             android:textColor="#0f0f0f"
             android:layout_marginLeft="25dp"
@@ -105,20 +113,24 @@
             android:layout_centerVertical="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_marginRight="25dp"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
             android:onClick="onClickCreateTask"
             android:gravity="center_vertical">
             <TextView
                 android:id="@+id/memberCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumbarungothicotf"
+                android:textSize="16sp"
                 android:layout_marginRight="7dp"
                 android:textColor="#adadad" />
             <Button
                 android:id="@+id/taskMemberBtn"
                 android:layout_width="8dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="1dp"
                 android:background="@drawable/btn_more"
                 android:onClick="onClickCreateTask" />
         </LinearLayout>
@@ -135,6 +147,7 @@
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:textColor="#0f0f0f"
+            android:fontFamily="@font/nanumbarungothicotf"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25dp"
             android:text="과제 기한 설정하기"/>
@@ -145,7 +158,10 @@
             android:layout_alignParentRight="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_marginRight="25dp"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
             android:layout_marginTop="1dp"
             android:onClick="onClickCreateTask"
             android:gravity="center_vertical"
@@ -154,14 +170,16 @@
                 android:id="@+id/dateCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="7dp" />
+                android:fontFamily="@font/nanumbarungothicotf"
+                android:textSize="16sp"
+                android:layout_marginRight="7dp"
+                android:textColor="#adadad"/>
             <Button
                 android:id="@+id/taskDateBtn"
                 android:layout_width="8dp"
                 android:layout_height="20dp"
                 android:background="@drawable/btn_more"
-                android:onClick="onClickCreateTask"
-                android:textSize="18dp" />
+                android:onClick="onClickCreateTask" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -172,6 +190,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:textSize="20dp"
+        android:fontFamily="@font/nanumbarungothicotfbold"
         android:onClick="onClickCreateTask"
         android:textColor="#0f0f0f"
         android:background="#bfbfbf"

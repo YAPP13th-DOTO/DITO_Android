@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/nanumbarungothicbold"
+                android:fontFamily="@font/nanumbarungothicotfbold"
                 android:lineSpacingExtra="5sp"
                 android:text="새 팀플 만들기"
                 android:textColor="#0f0f0f"
@@ -40,12 +40,17 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#0f0f0f"
+            android:fontFamily="@font/nanumbarungothicotf"
             android:lineSpacingExtra="0sp"
+            android:layout_marginLeft="2dp"
             android:text="방이름" />
         <EditText
             android:id="@+id/roomName_edit"
             android:layout_width="304dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumbarungothicotfbold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:maxLines="1"
             android:hint="방 이름을 입력해주세요."/>
 
@@ -54,6 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:textSize="20sp"
+            android:layout_marginLeft="2dp"
+            android:fontFamily="@font/nanumbarungothicotf"
             android:textColor="#0f0f0f"
             android:lineSpacingExtra="0sp"
             android:text="과목 명" />
@@ -61,6 +68,9 @@
             android:id="@+id/subjectName_edit"
             android:layout_width="304dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumbarungothicotfbold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:maxLines="1"
             android:hint="과목명을 입력해주세요."/>
 
@@ -82,7 +92,7 @@
             android:background="#bfbfbf"
             android:textColor="#0f0f0f"
             android:textSize="20sp"
-            android:fontFamily="@font/nanumbarungothicbold"
+            android:fontFamily="@font/nanumbarungothicotfbold"
             android:lineSpacingExtra="0sp"
             android:text="만들기"/>
     </RelativeLayout>

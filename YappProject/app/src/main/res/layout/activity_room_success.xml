@@ -12,7 +12,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/yellow">
             <TextView
                 android:id="@+id/title_toolbar"
@@ -21,7 +21,7 @@
                 android:textSize="15sp"
                 android:textColor="#0f0f0f"
                 android:lineSpacingExtra="5sp"
-                android:fontFamily="@font/nanumbarungothicbold"
+                android:fontFamily="@font/nanumbarungothicotfbold"
                 android:layout_gravity="center"
                 android:text="새 팀플 만들기"
                 />
@@ -36,7 +36,7 @@
         android:textSize="20sp"
         android:textColor="#0f0f0f"
         android:layout_gravity="center"
-        android:fontFamily="@font/nanumbarungothic"
+        android:fontFamily="@font/nanumbarungothicotf"
         android:text="** 과목"
         android:layout_marginTop="108dp"
         android:lineSpacingExtra="13sp"/>
@@ -54,6 +54,7 @@
             android:textSize="16sp"
             android:textColor="#090509"
             android:letterSpacing="-0.05"
+            android:fontFamily="@font/nanumbarungothic"
             android:lineSpacingExtra="3sp"
             android:layout_centerInParent="true"
             android:text="초대링크 복사" />
@@ -71,7 +72,7 @@
             android:background="@color/yellow"
             android:textColor="#0f0f0f"
             android:textSize="20sp"
-            android:fontFamily="@font/nanumbarungothicbold"
+            android:fontFamily="@font/nanumbarungothicotfbold"
             android:lineSpacingExtra="0sp"
             android:text="완료"/>
     </RelativeLayout>

@@ -75,8 +75,19 @@ public interface ApiService {
 
     // 유저 과제 승인요청
     @GET("push/req")
-    Call<ResponseBody> RequestApprovalResponseResult (
-            @Query("id") String id, @Query("name") String name
+    Call<BasicResponseResult> RequestApproval ( // Aid : 방장 id 값 Bid : 요청한 유저 id 값
+            @Query("Aid") String Aid, @Query("name") String name, @Query("Bid") String Bid, @Query("as_num") int as_num
     );
 
+    // 과제 승인 수락 및 거절
+    @GET("push/answer")
+    Call<BasicResponseResult> ResponseApproval (
+            @Query("id") String id, @Query("accept") int accept, @Query("as_num") int as_num
+    );
+
+    // 방 마감
+    @GET("done")
+    Call<BasicResponseResult> RoomFinish (
+        @Query("tmcode") String tmcode
+    );
 }

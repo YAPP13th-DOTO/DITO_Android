@@ -22,6 +22,9 @@
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumbarungothicotf"
+        android:textSize="14sp"
+        android:textColor="#0f0f0f"
         android:layout_marginTop="6dp"
         android:text="전유희"/>
 

@@ -4,7 +4,7 @@
     android:layout_width="282dp"
     android:layout_height="169dp"
     android:layout_gravity="center"
-    android:background="@drawable/toast_popup">
+    android:background="@drawable/dialog_complete_background">
 
     <TextView
         android:id="@+id/text"
@@ -14,10 +14,10 @@
         android:fontFamily="@font/nanumbarungothicotf"
         android:layout_marginTop="48dp"
         android:layout_marginLeft="30dp"
-        android:textColor="#111111"
+        android:textColor="@color/black"
         android:letterSpacing="0.01"
         android:lineSpacingExtra="7sp"
-        android:text="제출요청을\n승인하시겠습니까?"
+        android:text="팀플을 완료하시겠습니까?\n완료 시 수정이 불가능합니다."
         />
     <TextView
         android:id="@+id/cancel_tv"

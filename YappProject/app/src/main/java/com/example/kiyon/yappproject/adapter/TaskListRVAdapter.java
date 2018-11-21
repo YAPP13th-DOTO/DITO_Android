@@ -59,6 +59,10 @@ public class TaskListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    public int getTaskSize() {
+        return taskInfoItems.size();
+    }
+
     private class TaskListVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         private RelativeLayout taskItem_layout;
         private TextView task_title;

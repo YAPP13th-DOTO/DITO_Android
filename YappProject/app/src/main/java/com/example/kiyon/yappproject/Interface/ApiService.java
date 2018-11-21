@@ -1,9 +1,10 @@
 package com.example.kiyon.yappproject.Interface;
 
 import com.example.kiyon.yappproject.model.Etc.BasicResponseResult;
-import com.example.kiyon.yappproject.model.Room.CreateRoomResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomCreateResponseResult;
 import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomStatisticsResponseResult;
 import com.example.kiyon.yappproject.model.Task.TaskListResponseResult;
 
 
@@ -33,7 +34,7 @@ public interface ApiService {
 
     // 방생성
     @GET("create")
-    Call<CreateRoomResponseResult> CreateRoomResponseResult (
+    Call<RoomCreateResponseResult> CreateRoomResponseResult (
             @Query("id") String id, @Query("tname") String tname, @Query("sname") String sname
     );
 
@@ -90,4 +91,11 @@ public interface ApiService {
     Call<BasicResponseResult> RoomFinish (
         @Query("tmcode") String tmcode
     );
+
+    // 방 통계정보
+    @GET("done/result")
+    Call<ArrayList<RoomStatisticsResponseResult>> RoomStatistics (
+            @Query("tmcode") String tmcode
+    );
+
 }

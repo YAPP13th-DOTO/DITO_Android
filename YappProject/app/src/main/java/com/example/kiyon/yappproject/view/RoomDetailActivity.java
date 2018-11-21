@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kiyon.yappproject.R;
@@ -41,6 +43,7 @@ import com.example.kiyon.yappproject.model.Task.TaskListResponseResult;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -167,7 +170,6 @@ public class RoomDetailActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("test1414" , "실행");
             loadTasksData();
         }
     };
@@ -199,7 +201,11 @@ public class RoomDetailActivity extends AppCompatActivity {
                     startActivityForResult(intent1, 4000);
                     break;
                 case R.id.roomDone_tv :
-                    setDialogView();
+                    if (taskListRVAdapter.getTaskSize() == 0) {
+                        Toasty.error(RoomDetailActivity.this, "과제가 없을 경우 팀플을 완료할 수 없습니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        setDialogView();
+                    }
                     break;
             }
         }

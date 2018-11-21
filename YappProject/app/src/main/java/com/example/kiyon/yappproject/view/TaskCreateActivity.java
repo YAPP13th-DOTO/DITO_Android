@@ -180,11 +180,11 @@ public class TaskCreateActivity extends AppCompatActivity {
     public void onClickCreateTask(View v) {
         switch (v.getId()) {
             case R.id.taskCreateBtn: // 과제 만들기 버튼
-                if (taskName_edit.getText() == null) {
+                if (taskName_edit.getText().toString().matches("")) {
                     Toasty.warning(TaskCreateActivity.this, "과제명을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                } else if (taskSub_edit.getText() == null) {
+                } else if (taskSub_edit.getText().toString().matches("")) {
                     Toasty.warning(TaskCreateActivity.this, "과제 내용을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                } else if (memberCount.getText().equals("0명") || memberCount.length() == 0) {
+                } else if (memberCount.getText().toString().matches("0명") || memberCount.getText().toString().trim().length() == 0) {
                     Toasty.warning(TaskCreateActivity.this, "과제 수행자를 지정해주세요.", Toast.LENGTH_SHORT).show();
                 } else if (dateCount.length() == 0) {
                     Toasty.warning(TaskCreateActivity.this, "과제 기한을 설정해주세요.", Toast.LENGTH_SHORT).show();
@@ -195,7 +195,6 @@ public class TaskCreateActivity extends AppCompatActivity {
 
                     createTask(tmcode, taskName, taskContent, taskDeadline, attendUserIdLists);
                 }
-
                 break;
             case R.id.taskDateLayout: // 기한 설정 하기
                 materialCalender.setVisibility(View.VISIBLE);

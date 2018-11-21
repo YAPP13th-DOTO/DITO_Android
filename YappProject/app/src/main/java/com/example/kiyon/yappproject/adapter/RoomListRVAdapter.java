@@ -17,6 +17,7 @@ import com.example.kiyon.yappproject.view.RoomDetailActivity;
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.model.Room.RoomListResponseResult;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
+import com.example.kiyon.yappproject.view.RoomStatisticsActivity;
 
 import java.util.ArrayList;
 
@@ -85,7 +86,9 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // 화면전환
+                    Intent intent = RoomStatisticsActivity.newIntent(mContext, roomListResponseResults.get(getAdapterPosition()).tm_code,
+                            roomListResponseResults.get(getAdapterPosition()).sub_name);
+                    mContext.startActivity(intent);
                 }
             });
         }
@@ -200,14 +203,12 @@ public class RoomListRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 roomListProgressVH.profile_image3.setVisibility(View.VISIBLE);
 
                 if (lists.get(0).user_pic.equals("undefined")) {
-                    Log.d("test1514", "실행1");
                     Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image2);
                 } else {
                     Glide.with(mContext).load(lists.get(0).user_pic).into(roomListProgressVH.profile_image2);
                 }
 
                 if (lists.get(1).user_pic.equals("undefined")) {
-                    Log.d("test1514", "실행2");
                     Glide.with(mContext).load(R.drawable.temp_user_image).into(roomListProgressVH.profile_image3);
                 } else {
                     Glide.with(mContext).load(lists.get(1).user_pic).into(roomListProgressVH.profile_image3);

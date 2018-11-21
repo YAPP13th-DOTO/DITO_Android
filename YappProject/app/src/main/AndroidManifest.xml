@@ -21,7 +21,7 @@
         <activity android:name=".view.MainActivity" />
         <activity android:name=".view.RoomDetailActivity" />
         <activity android:name=".view.LoginActivity" />
-        <activity android:name=".view.SplashActivity" >
+        <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,23 +31,21 @@
         <activity android:name=".view.RoomCreateActivity" />
         <activity android:name=".view.RoomSuccessActivity" />
         <activity android:name=".view.TeamMembersActivity" />
-        <activity android:name=".view.TaskCreateActivity"/>
+        <activity android:name=".view.TaskCreateActivity" />
         <activity android:name=".view.TaskMemberActivity" />
 
-        <service
-            android:name=".firebase.FireBaseMessagingService">
+        <service android:name=".firebase.FireBaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebase.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".firebase.FirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
+        <activity android:name=".view.RoomStatisticsActivity"></activity>
     </application>
 
 </manifest>

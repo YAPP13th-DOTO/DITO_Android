@@ -16,6 +16,7 @@ import android.view.WindowManager;
 
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.adapter.TeamMembersRVAdapter;
+import com.example.kiyon.yappproject.common.StatusBarColorChange;
 import com.example.kiyon.yappproject.model.Room.RoomAttendUsersItem;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class TeamMembersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team_members);
 
         // 상태바 셋팅
-        setStatusBarColor(TeamMembersActivity.this, getResources().getColor(R.color.white));
+        StatusBarColorChange.setStatusBarColor(TeamMembersActivity.this, getResources().getColor(R.color.white));
 
         // 툴바 셋팅
         Toolbar toolbar = findViewById(R.id.toolbar);

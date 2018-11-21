@@ -19,7 +19,7 @@ import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
 import com.example.kiyon.yappproject.common.UserInfoReturn;
-import com.example.kiyon.yappproject.model.Room.CreateRoomResponseResult;
+import com.example.kiyon.yappproject.model.Room.RoomCreateResponseResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,14 +98,14 @@ public class RoomCreateActivity extends AppCompatActivity {
 
         String userID = UserInfoReturn.getInstance().getUserId(RoomCreateActivity.this);
 
-        Call<CreateRoomResponseResult> call = RetrofitServerClient.getInstance().getService().CreateRoomResponseResult(userID, roomName, subjectName);
-        call.enqueue(new Callback<CreateRoomResponseResult>() {
+        Call<RoomCreateResponseResult> call = RetrofitServerClient.getInstance().getService().CreateRoomResponseResult(userID, roomName, subjectName);
+        call.enqueue(new Callback<RoomCreateResponseResult>() {
             @Override
-            public void onResponse(Call<CreateRoomResponseResult> call, Response<CreateRoomResponseResult> response) {
+            public void onResponse(Call<RoomCreateResponseResult> call, Response<RoomCreateResponseResult> response) {
                 if (response.isSuccessful()) {
-                    CreateRoomResponseResult createRoomResponseResult = response.body();
-                    if (createRoomResponseResult != null) {
-                        Intent intent = RoomSuccessActivity.newIntent(RoomCreateActivity.this, roomName, subjectName, createRoomResponseResult.code);
+                    RoomCreateResponseResult roomCreateResponseResult = response.body();
+                    if (roomCreateResponseResult != null) {
+                        Intent intent = RoomSuccessActivity.newIntent(RoomCreateActivity.this, roomName, subjectName, roomCreateResponseResult.code);
                         startActivity(intent);
                         finish();
 
@@ -117,7 +117,7 @@ public class RoomCreateActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<CreateRoomResponseResult> call, Throwable t) {
+            public void onFailure(Call<RoomCreateResponseResult> call, Throwable t) {
                 Log.d("RoomCreateActivity", t.getMessage());
 
             }

@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:593318301930:android:680c78df3ef39509",
+        "mobilesdk_app_id": "1:593318301930:android:b04077e7d94d7cd8",
         "android_client_info": {
-          "package_name": "com.example.kiyon.yappproject"
+          "package_name": "com.team_yapp.kiyon.yappproject"
         }
       },
       "oauth_client": [

@@ -188,7 +188,7 @@
         android:fontFamily="@font/nanumbarungothicotfbold"
         android:lineSpacingExtra="0sp"
         android:layout_gravity="bottom"
-        app:layout_behavior="com.example.kiyon.yappproject.common.QuickReturnFooterBehavior"
+        app:layout_behavior="com.team_yapp.kiyon.yappproject.common.QuickReturnFooterBehavior"
         android:text="과제추가"/>
 
 </android.support.design.widget.CoordinatorLayout>

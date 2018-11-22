@@ -11,11 +11,11 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.kiyon.yappproject"
+        applicationId "com.team_yapp.kiyon.yappproject"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

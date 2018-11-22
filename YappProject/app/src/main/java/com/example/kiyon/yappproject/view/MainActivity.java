@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.kiyon.yappproject.R;
 import com.example.kiyon.yappproject.adapter.RoomListRVAdapter;
+import com.example.kiyon.yappproject.common.BackPressCloseHandler;
 import com.example.kiyon.yappproject.common.CustomTypefaceSpan;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.common.StatusBarColorChange;
@@ -44,6 +45,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+    private BackPressCloseHandler backPressCloseHandler;
     private FloatingActionsMenu addBtn;
     private RecyclerView recyclerView;
     private RoomListRVAdapter roomListRVAdapter;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 이전버튼 2번 클릭 종료 클래스 셋팅
+        backPressCloseHandler = new BackPressCloseHandler(this);
         // 툴바 셋팅
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -94,6 +98,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     protected void onRestart() {
         super.onRestart();
         loadRoomData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        backPressCloseHandler.onBackPressed();
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {

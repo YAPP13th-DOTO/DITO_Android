@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.example.kiyon.yappproject.R;
+import com.example.kiyon.yappproject.common.BackPressCloseHandler;
 import com.example.kiyon.yappproject.common.RetrofitServerClient;
 import com.example.kiyon.yappproject.model.Etc.LoginResponseResult;
 import com.kakao.auth.AuthType;
@@ -41,6 +42,8 @@ import static com.kakao.util.helper.Utility.getPackageInfo;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private BackPressCloseHandler backPressCloseHandler;
+
     private SessionCallback callback;
     private ImageView btn_kakao_login;
 
@@ -58,6 +61,10 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
+
+        // 이전버튼 2번 클릭 클래스 셋팅
+        backPressCloseHandler = new BackPressCloseHandler(this);
+
         getHashKey();
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
@@ -73,6 +80,11 @@ public class LoginActivity extends AppCompatActivity {
                 session.open(AuthType.KAKAO_ACCOUNT , LoginActivity.this);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        backPressCloseHandler.onBackPressed();
     }
 
     private void getHashKey() {

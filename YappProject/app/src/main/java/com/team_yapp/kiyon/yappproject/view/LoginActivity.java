@@ -15,6 +15,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.kakao.auth.ApiResponseCallback;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.request.SignupRequest;
+import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.usermgmt.response.model.User;
+import com.kakao.util.KakaoUtilService;
 import com.team_yapp.kiyon.yappproject.R;
 import com.team_yapp.kiyon.yappproject.common.BackPressCloseHandler;
 import com.team_yapp.kiyon.yappproject.common.RetrofitServerClient;
@@ -37,6 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.kakao.util.helper.Utility.buildQueryString;
 import static com.kakao.util.helper.Utility.getPackageInfo;
 
 
@@ -131,12 +138,12 @@ public class LoginActivity extends AppCompatActivity {
 
             // 사용자정보 요청 결과에 대한 Callback
 
-            UserManagement.requestMe(new MeResponseCallback() {
+            UserManagement.getInstance().requestMe(new MeResponseCallback() {
 
                 // 세션 오픈 실패. 세션이 삭제된 경우,
 
-                @Override
 
+                @Override
                 public void onSessionClosed(ErrorResult errorResult) {
 
                     Log.e("SessionCallback :: ", "onSessionClosed : " + errorResult.getErrorMessage());
@@ -174,12 +181,6 @@ public class LoginActivity extends AppCompatActivity {
                         isChecked = false;
                         loadData(uid, nickname, profileImagePath);
                     }
-
-
-//                    long id = userProfile.getId();
-//                    String thumnailPath = userProfile.getThumbnailImagePath();
-//                    String email = userProfile.getEmail();
-
                 }
 
                 // 사용자 정보 요청 실패
@@ -193,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
 
             });
 
-            UserManagement.requestLogout(new LogoutResponseCallback() {
+            UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
 
                 @Override
 
@@ -214,6 +215,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Session.getCurrentSession().removeCallback(callback);
     }
 
     public void loadData(final String uid, final String nickname, final String profileImagePath) {
